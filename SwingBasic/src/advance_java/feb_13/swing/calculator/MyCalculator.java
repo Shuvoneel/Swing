@@ -1,5 +1,5 @@
 
-package advance_java.swing.calculator;
+package advance_java.feb_13.swing.calculator;
 
 public class MyCalculator extends javax.swing.JFrame {
 
@@ -112,6 +112,7 @@ public class MyCalculator extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MyCalculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
