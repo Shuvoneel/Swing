@@ -17,9 +17,9 @@ public class Login extends javax.swing.JFrame {
         lblPassword = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         lblMsg = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,24 +38,24 @@ public class Login extends javax.swing.JFrame {
         txtPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPassword.setText("jPasswordField1");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 153, 51));
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(0, 153, 51));
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
         lblMsg.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(153, 0, 0));
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(153, 0, 0));
-        jButton2.setText("Exit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnExit.setForeground(new java.awt.Color(153, 0, 0));
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -76,9 +76,9 @@ public class Login extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnLogin)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2))
+                                .addComponent(btnExit))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lblMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtUsername)
@@ -102,24 +102,24 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(lblMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLogin)
+                    .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(201, 201, 201))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         if (txtUsername.getText().equalsIgnoreCase("admin") && txtPassword.getText().equalsIgnoreCase("1234")) {
             this.setVisible(false);
             new Dashboard().setVisible(true);
         } else {
             lblMsg.setText("Invalid Username or Password");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         int dialogButton = 0;
         int dialogResult = JOptionPane.showConfirmDialog(null, "Would You Like to Exit the Program ?", "Warning", dialogButton);
         if (dialogResult == JOptionPane.YES_OPTION) {
@@ -131,7 +131,7 @@ public class Login extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -168,8 +168,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblMsg;
     private javax.swing.JLabel lblPassword;

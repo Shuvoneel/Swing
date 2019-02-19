@@ -1,7 +1,6 @@
 package commonmenu.menu.util;
 
 import commonmenu.menu.About;
-import commonmenu.menu.Check_for_Update;
 import commonmenu.menu.Dashboard;
 import commonmenu.menu.Help_Contents;
 import commonmenu.menu.Login;
@@ -73,14 +72,7 @@ public class CommonMenu {
             }
         });
 
-        JMenuItem checkUpdate = new JMenuItem("Check for Update");
-        checkUpdate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.setVisible(false);
-                new Check_for_Update().setVisible(true);
-            }
-        });
+        
 
         // add four menuItem in file menu
         file.add(itemAbout);
@@ -90,7 +82,6 @@ public class CommonMenu {
 
         // add two menuItem in help menu
         help.add(helpContent);
-        help.add(checkUpdate);
 
         menuBar.add(file);
         menuBar.add(help);
