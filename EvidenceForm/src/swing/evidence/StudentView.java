@@ -45,6 +45,7 @@ public class StudentView extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblDisplay = new javax.swing.JTable();
+        btnValidation = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,7 +119,7 @@ public class StudentView extends javax.swing.JFrame {
             }
         });
 
-        btnExit.setText("Exit");
+        btnExit.setText("Exit the Program");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
@@ -135,6 +136,13 @@ public class StudentView extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tblDisplay);
 
+        btnValidation.setText("Validation");
+        btnValidation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,47 +150,57 @@ public class StudentView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnReadFile, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(lblHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(lblHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblAge, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblGender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCourses, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(lblRound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblComments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(89, 89, 89)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtID)
-                                .addComponent(txtName)
-                                .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                .addComponent(txtEmail))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(chkOne, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                    .addComponent(rMale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblRound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblCourses, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                    .addComponent(lblGender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblAge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblComments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtID)
+                                    .addComponent(txtName)
+                                    .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                    .addComponent(txtEmail)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(chkTwo)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(chkThree))))
-                            .addComponent(cmbRound, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1)))
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnClearForm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnClearTable, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(chkOne, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                                            .addComponent(rMale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(rFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(chkTwo)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(chkThree))))
+                                    .addComponent(cmbRound, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnClearTable, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnClearForm, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnValidation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnReadFile, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
                 .addContainerGap())
@@ -230,19 +248,21 @@ public class StudentView extends javax.swing.JFrame {
                             .addComponent(lblComments)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
-                        .addComponent(btnAdd)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdd)
+                            .addComponent(btnClearTable))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnClearForm)
-                            .addComponent(btnClearTable))
+                            .addComponent(btnReadFile))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnReadFile)
-                            .addComponent(btnExit)))
+                            .addComponent(btnExit)
+                            .addComponent(btnValidation)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 26, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,18 +270,18 @@ public class StudentView extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         int id = Integer.parseInt(txtID.getText());
-        if (id == 0) {
+        if (id < 1) {
             JOptionPane.showMessageDialog(null, "Enter your ID");
         }
 
         String name = txtName.getText();
-        if (name.length() < 3) {
+        if (name.trim().length() < 3) {
             JOptionPane.showMessageDialog(null, "Enter your Name");
         }
 
         int age = Integer.parseInt(txtAge.getText());
-        if (age == 0) {
-            JOptionPane.showMessageDialog(null, "Enter your Age");
+        if (age < 18 || age > 100) {
+            JOptionPane.showMessageDialog(null, "Enter Age between 18 to 100");
         }
 
         String email = txtEmail.getText();
@@ -275,20 +295,20 @@ public class StudentView extends javax.swing.JFrame {
         }
 
         String gender = "";
-        if (gender == "") {
+        if (!rMale.isSelected() && !rFemale.isSelected()) {
             JOptionPane.showMessageDialog(null, "Enter your Gender");
         } else {
-            if (rMale.isSelected() == true) {
+            if (rMale.isSelected()) {
                 gender = rMale.getText();
             }
-            if (rFemale.isSelected() == true) {
+            if (rFemale.isSelected()) {
                 gender = rFemale.getText();
             }
         }
 
         String course = "";
-        if (course == "") {
-            JOptionPane.showMessageDialog(null, "Select completed Courses");
+        if (!chkOne.isSelected() && !chkTwo.isSelected() && !chkThree.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Select your completed Courses");
         } else {
             if (chkOne.isSelected()) {
                 course += chkOne.getText();
@@ -302,12 +322,12 @@ public class StudentView extends javax.swing.JFrame {
         }
 
         String round = cmbRound.getItemAt(cmbRound.getSelectedIndex());
-        if (cmbRound.getItemAt(cmbRound.getSelectedIndex()) == "Select a Round") {
+        if (cmbRound.getItemAt(cmbRound.getSelectedIndex()).equalsIgnoreCase("Select a Round")) {
             JOptionPane.showMessageDialog(null, "Select your Round");
         }
 
         String comment = txtComments.getText();
-        if (comment.length() < 10) {
+        if (comment.trim().length() < 10) {
             JOptionPane.showMessageDialog(null, "Enter your Message");
         }
 
@@ -327,8 +347,7 @@ public class StudentView extends javax.swing.JFrame {
         List<Student> list = new ArrayList<>();
         list.add(student);
 
-        WriteAndReadMethod.writeToFile(JOptionPane.showInputDialog("Enter file name to save"), list);
-
+        WriteAndReadMethod.writeToFile(JOptionPane.showInputDialog("Enter file name to Save"), list);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -365,6 +384,18 @@ public class StudentView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         WriteAndReadMethod.displayDatafromTable(JOptionPane.showInputDialog("Enter file name to Read"), model);
     }//GEN-LAST:event_btnReadFileActionPerformed
+
+    private void btnValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidationActionPerformed
+        String email = txtEmail.getText();
+        int atpos = email.indexOf("@");
+        int dotpos = email.lastIndexOf(".");
+
+        if (atpos > 1 && (dotpos - atpos) > 2) {
+            JOptionPane.showMessageDialog(null, "Email is Valid");
+        } else {
+            JOptionPane.showMessageDialog(null, "Email is Invalid");
+        }
+    }//GEN-LAST:event_btnValidationActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -404,6 +435,7 @@ public class StudentView extends javax.swing.JFrame {
     private javax.swing.JButton btnClearTable;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnReadFile;
+    private javax.swing.JButton btnValidation;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chkOne;
     private javax.swing.JCheckBox chkThree;
