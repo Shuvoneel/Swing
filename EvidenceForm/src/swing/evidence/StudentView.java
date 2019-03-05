@@ -12,6 +12,17 @@ public class StudentView extends javax.swing.JFrame {
         initComponents();
     }
 
+    public boolean emailValidation(String email) {
+        int atpos = email.indexOf("@");
+        int dotpos = email.lastIndexOf(".");
+
+        if (atpos > 1 && (dotpos - atpos) > 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -269,47 +280,54 @@ public class StudentView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        int id = Integer.parseInt(txtID.getText());
-        if (id < 1) {
+        // ID
+        if (Integer.parseInt(txtID.getText()) < 1) {
             JOptionPane.showMessageDialog(null, "Enter your ID");
-        }
-
-        String name = txtName.getText();
-        if (name.trim().length() < 3) {
+        } 
+        // Name
+        else if (txtName.getText().trim().length() < 3) {
             JOptionPane.showMessageDialog(null, "Enter your Name");
-        }
-
-        int age = Integer.parseInt(txtAge.getText());
-        if (age < 18 || age > 100) {
+        } 
+        // Age
+        else if (Integer.parseInt(txtAge.getText()) < 18 || Integer.parseInt(txtAge.getText()) > 100) {
             JOptionPane.showMessageDialog(null, "Enter Age between 18 to 100");
-        }
-
-        String email = txtEmail.getText();
-        int atpos = email.indexOf("@");
-        int dotpos = email.lastIndexOf(".");
-
-        if (atpos > 1 && (dotpos - atpos) > 2) {
-            JOptionPane.showMessageDialog(null, "Email is Valid");
-        } else {
-            JOptionPane.showMessageDialog(null, "Email is Invalid");
-        }
-
-        String gender = "";
-        if (!rMale.isSelected() && !rFemale.isSelected()) {
+        } 
+        // Email
+        else if (!emailValidation(txtEmail.getText())) {
+            JOptionPane.showMessageDialog(null, "Enter your Valid email");
+        } 
+        // Gender
+        else if (!rMale.isSelected() && !rFemale.isSelected()) {
             JOptionPane.showMessageDialog(null, "Enter your Gender");
-        } else {
+        } 
+        // Course
+        else if (!chkOne.isSelected() && !chkTwo.isSelected() && !chkThree.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Select your completed Courses");
+        } 
+        // Round
+        else if (cmbRound.getItemAt(cmbRound.getSelectedIndex()).equalsIgnoreCase("Select a Round")) {
+            JOptionPane.showMessageDialog(null, "Select your Round");
+        } 
+        // Comments
+        else if (txtComments.getText().trim().length() < 10) {
+            JOptionPane.showMessageDialog(null, "Enter your Message");
+        } 
+        // Value Print
+        else {
+            int id = Integer.parseInt(txtID.getText()); // ID
+            String name = txtName.getText(); // Name
+            int age = Integer.parseInt(txtAge.getText()); // Age
+            String email = txtEmail.getText(); // Email
+
+            String gender = ""; // Gender
             if (rMale.isSelected()) {
                 gender = rMale.getText();
             }
             if (rFemale.isSelected()) {
                 gender = rFemale.getText();
             }
-        }
 
-        String course = "";
-        if (!chkOne.isSelected() && !chkTwo.isSelected() && !chkThree.isSelected()) {
-            JOptionPane.showMessageDialog(null, "Select your completed Courses");
-        } else {
+            String course = ""; // Course
             if (chkOne.isSelected()) {
                 course += chkOne.getText();
             }
@@ -319,36 +337,30 @@ public class StudentView extends javax.swing.JFrame {
             if (chkThree.isSelected()) {
                 course += " " + chkThree.getText();
             }
+
+            String round = cmbRound.getItemAt(cmbRound.getSelectedIndex()); // Round
+
+            String comment = txtComments.getText(); // Comments
+
+            DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+            Object[] row = new Object[8];
+            row[0] = id;
+            row[1] = name;
+            row[2] = age;
+            row[3] = email;
+            row[4] = gender;
+            row[5] = course;
+            row[6] = round;
+            row[7] = comment;
+            model.addRow(row);
+
+            Student student = new Student(id, name, age, email, gender, course, round, comment);
+            List<Student> list = new ArrayList<>();
+            list.add(student);
+
+            WriteAndReadMethod.writeToFile(JOptionPane.showInputDialog("Enter file name to Save"), list);
+
         }
-
-        String round = cmbRound.getItemAt(cmbRound.getSelectedIndex());
-        if (cmbRound.getItemAt(cmbRound.getSelectedIndex()).equalsIgnoreCase("Select a Round")) {
-            JOptionPane.showMessageDialog(null, "Select your Round");
-        }
-
-        String comment = txtComments.getText();
-        if (comment.trim().length() < 10) {
-            JOptionPane.showMessageDialog(null, "Enter your Message");
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-        Object[] row = new Object[8];
-        row[0] = id;
-        row[1] = name;
-        row[2] = age;
-        row[3] = email;
-        row[4] = gender;
-        row[5] = course;
-        row[6] = round;
-        row[7] = comment;
-        model.addRow(row);
-
-        Student student = new Student(id, name, age, email, gender, course, round, comment);
-        List<Student> list = new ArrayList<>();
-        list.add(student);
-
-        WriteAndReadMethod.writeToFile(JOptionPane.showInputDialog("Enter file name to Save"), list);
-
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnClearTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearTableActionPerformed
@@ -381,6 +393,14 @@ public class StudentView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearFormActionPerformed
 
     private void btnReadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadFileActionPerformed
+        
+//        String columns[] = {"Id", "Name", "Age", "Email", "password", "Gender", "C.Course", "Round", "Comments"};
+//        DefaultTableModel tableModel;
+//        tableModel = new DefaultTableModel(0, 8);
+//        tableModel.setColumnIdentifiers(columns);
+//        tblDisplay.setModel(tableModel);
+//        WriteAndReadMethod.displayDatafromTable("Shawon", tableModel);
+        
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         WriteAndReadMethod.displayDatafromTable(JOptionPane.showInputDialog("Enter file name to Read"), model);
     }//GEN-LAST:event_btnReadFileActionPerformed

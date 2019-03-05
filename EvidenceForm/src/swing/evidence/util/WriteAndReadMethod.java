@@ -41,7 +41,7 @@ public class WriteAndReadMethod {
             }
             reader.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Buffered Reader Issue");
+            JOptionPane.showMessageDialog(null, "File doesn't exist");
         }
     }
 }
