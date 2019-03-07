@@ -220,7 +220,7 @@ public class DatabaseTool extends javax.swing.JFrame {
 
         RoleDao roleDao = new RoleDaoImp();
         try {
-            roleDao.createTable(txtArea.getText().trim());
+            roleDao.createTable();
             lblDisplay.setText("Success !!");
         } catch (Exception e) {
             lblDisplay.setText("Check Error");

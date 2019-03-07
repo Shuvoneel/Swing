@@ -3,8 +3,6 @@ package JDBC.service;
 import JDBC.connection.DBConnection;
 import JDBC.dao.RoleDao;
 import JDBC.pojo.Role;
-import JDBC.view.DatabaseTool;
-import com.mysql.jdbc.Util;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,13 +14,14 @@ import java.util.logging.Logger;
 public class RoleDaoImp implements RoleDao {
 
     @Override
-    public void createTable(String sql) {
-//        String sql = "create table IF NOT EXISTS role(id int(2) auto_increment primary key, role_name varchar(20) not null unique)";
+    public void createTable() {
+        String sql = "create table IF NOT EXISTS role(id int(5) auto_increment primary key, role_name varchar(30) not null unique)";
         try {
-            PreparedStatement pstm = DatabaseTool.conn.prepareStatement(sql);
+            PreparedStatement pstm = DBConnection.getDBConnection().prepareStatement(sql);
             pstm.execute();
             System.out.println("Table Created");
         } catch (Exception e) {
+            Logger.getLogger(RoleDaoImp.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -30,29 +29,75 @@ public class RoleDaoImp implements RoleDao {
     public void save(Role role) {
         String sql = "insert into role(role_name) values(?)";
         try {
-            PreparedStatement pstm = DatabaseTool.conn.prepareStatement(sql);
+            PreparedStatement pstm = DBConnection.getDBConnection().prepareStatement(sql);
             pstm.setString(1, role.getRoleName());
-            pstm.execute();
-            System.out.println("Data Inserted");
+            pstm.executeUpdate();
+            System.out.println("Data Saved");
         } catch (Exception e) {
+            Logger.getLogger(RoleDaoImp.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
     public void update(Role role) {
+        String sql = "update role set role_name=? where id=?";
+        try {
+            PreparedStatement pstm = DBConnection.getDBConnection().prepareStatement(sql);
+            pstm.setString(1, role.getRoleName());
+            pstm.setInt(2, role.getId());
+            pstm.executeUpdate();
+            System.out.println("Data Updated");
+        } catch (Exception e) {
+            Logger.getLogger(RoleDaoImp.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override
     public Role getRoleByID(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Role role = new Role();
+        String sql = "select * from role where id=?";
+        try {
+            PreparedStatement pstm = DBConnection.getDBConnection().prepareStatement(sql);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                role.setId(rs.getInt(1));
+                role.setRoleName(rs.getString(2));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(RoleDaoImp.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return role;
     }
 
     @Override
     public Role getRoleByRoleName(String roleName) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Role role = new Role();
+        String sql = "select * from role where role_name=?";
+        try {
+            PreparedStatement pstm = DBConnection.getDBConnection().prepareStatement(sql);
+            pstm.setString(1, roleName);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                role.setId(rs.getInt(1));
+                role.setRoleName(rs.getString(2));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(RoleDaoImp.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return role;
     }
 
     @Override
     public void delete(int id) {
+        String sql = "delete from role where id=?";
+        try {
+            PreparedStatement pstm = DBConnection.getDBConnection().prepareStatement(sql);
+            pstm.setInt(1, id);
+            pstm.executeQuery();
+            System.out.println("Data Deleted");
+        } catch (Exception e) {
+            Logger.getLogger(RoleDaoImp.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override
