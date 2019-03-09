@@ -145,6 +145,11 @@ public class StudentView extends javax.swing.JFrame {
                 "ID", "Name", "Age", "Email", "Gender", "Course", "Round", "Comments"
             }
         ));
+        tblDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDisplayMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblDisplay);
 
         btnValidation.setText("Validation");
@@ -283,36 +288,28 @@ public class StudentView extends javax.swing.JFrame {
         // ID
         if (Integer.parseInt(txtID.getText()) < 1) {
             JOptionPane.showMessageDialog(null, "Enter your ID");
-        } 
-        // Name
+        } // Name
         else if (txtName.getText().trim().length() < 3) {
             JOptionPane.showMessageDialog(null, "Enter your Name");
-        } 
-        // Age
+        } // Age
         else if (Integer.parseInt(txtAge.getText()) < 18 || Integer.parseInt(txtAge.getText()) > 100) {
             JOptionPane.showMessageDialog(null, "Enter Age between 18 to 100");
-        } 
-        // Email
+        } // Email
         else if (!emailValidation(txtEmail.getText())) {
             JOptionPane.showMessageDialog(null, "Enter your Valid email");
-        } 
-        // Gender
+        } // Gender
         else if (!rMale.isSelected() && !rFemale.isSelected()) {
             JOptionPane.showMessageDialog(null, "Enter your Gender");
-        } 
-        // Course
+        } // Course
         else if (!chkOne.isSelected() && !chkTwo.isSelected() && !chkThree.isSelected()) {
             JOptionPane.showMessageDialog(null, "Select your completed Courses");
-        } 
-        // Round
+        } // Round
         else if (cmbRound.getItemAt(cmbRound.getSelectedIndex()).equalsIgnoreCase("Select a Round")) {
             JOptionPane.showMessageDialog(null, "Select your Round");
-        } 
-        // Comments
+        } // Comments
         else if (txtComments.getText().trim().length() < 10) {
             JOptionPane.showMessageDialog(null, "Enter your Message");
-        } 
-        // Value Print
+        } // Value Print
         else {
             int id = Integer.parseInt(txtID.getText()); // ID
             String name = txtName.getText(); // Name
@@ -393,14 +390,13 @@ public class StudentView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearFormActionPerformed
 
     private void btnReadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadFileActionPerformed
-        
+
 //        String columns[] = {"Id", "Name", "Age", "Email", "password", "Gender", "C.Course", "Round", "Comments"};
 //        DefaultTableModel tableModel;
 //        tableModel = new DefaultTableModel(0, 8);
 //        tableModel.setColumnIdentifiers(columns);
 //        tblDisplay.setModel(tableModel);
 //        WriteAndReadMethod.displayDatafromTable("Shawon", tableModel);
-        
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         WriteAndReadMethod.displayDatafromTable(JOptionPane.showInputDialog("Enter file name to Read"), model);
     }//GEN-LAST:event_btnReadFileActionPerformed
@@ -416,6 +412,41 @@ public class StudentView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Email is Invalid");
         }
     }//GEN-LAST:event_btnValidationActionPerformed
+
+    private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+        int i = tblDisplay.getSelectedRow();
+        txtID.setText(model.getValueAt(i, 0).toString());
+        txtName.setText(model.getValueAt(i, 1).toString());
+        txtAge.setText(model.getValueAt(i, 2).toString());
+        txtEmail.setText(model.getValueAt(i, 3).toString());
+        String gender = model.getValueAt(i, 4).toString();
+        if (gender.equals("Female")) {
+            rFemale.setSelected(true);
+        } else {
+            rMale.setSelected(true);
+        }
+        String course = model.getValueAt(i, 5).toString();
+        if (course.contains("HTML")) {
+            chkOne.setSelected(true);
+        } else {
+            chkOne.setSelected(false);
+        }
+        if (course.contains("Oracle")) {
+            chkTwo.setSelected(true);
+        } else {
+            chkTwo.setSelected(false);
+        }
+        if (course.contains("Java")) {
+            chkThree.setSelected(true);
+        } else {
+            chkThree.setSelected(false);
+        }
+        String round = model.getValueAt(i, 6).toString();
+        cmbRound.setSelectedItem(round);
+        txtComments.setText(model.getValueAt(i, 7).toString());
+
+    }//GEN-LAST:event_tblDisplayMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

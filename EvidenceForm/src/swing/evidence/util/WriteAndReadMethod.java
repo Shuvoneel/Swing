@@ -19,11 +19,11 @@ public class WriteAndReadMethod {
                 System.out.println("Created a new File");
                 destFile.createNewFile();
             }
-            PrintWriter out = new PrintWriter(new FileWriter(destFile, true));
+            PrintWriter writer = new PrintWriter(new FileWriter(destFile, true));
             for (Student s : students) {
-                out.append(s.getId() + ", " + s.getName() + ", " + s.getAge() + ", " + s.getEmail() + ", " + s.getGender() + ", " + s.getCourse() + ", " + s.getRound() + ", " + s.getComment() + "\n");
+                writer.append(s.getId() + ", " + s.getName() + ", " + s.getAge() + ", " + s.getEmail() + ", " + s.getGender() + ", " + s.getCourse() + ", " + s.getRound() + ", " + s.getComment() + "\n");
             }
-            out.close();
+            writer.close();
         } catch (Exception e) {
             System.out.println("Could not Log !!!");
         }

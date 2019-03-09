@@ -16,7 +16,7 @@ public class UserView extends javax.swing.JFrame {
 
     public UserView() {
         initComponents();
-        displayroleIntoTable();
+        displayRoleListIntoTable();
         displayRoleAtComboBox();
     }
 
@@ -25,20 +25,44 @@ public class UserView extends javax.swing.JFrame {
         List<Role> roles = dao.getRoles();
         cmbRolename.addItem("Select a Rolename");
         for (Role role : roles) {
-            cmbRolename.addItem(role.getId() + "   " + role.getRoleName());
+            cmbRolename.addItem(role.getRoleName());
         }
     }
 
-    public void displayroleIntoTable() {
-
-        List<Role> list = roledao.getRoles();
+    public void displayRoleListIntoTable() {
+        clearTable();
+        RoleDao roleDao = new RoleDaoImp();
+        UserDao dao = new UserDaoImp();
+        List<User> list = dao.getUsers();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-        Object[] cols = new Object[2];
+        Object[] cols = new Object[6];
         for (int i = 0; i < list.size(); i++) {
             cols[0] = list.get(i).getId();
-            cols[1] = list.get(i).getRoleName();
+            cols[1] = list.get(i).getFullname();
+            cols[2] = list.get(i).getUsername();
+            cols[3] = list.get(i).getPassword();
+            cols[4] = list.get(i).getMobile();
+            Role role = roleDao.getRoleByID(list.get(i).getRole().getId());
+            cols[5] = role.getRoleName();
             model.addRow(cols);
         }
+
+    }
+
+    private static int userId;
+
+    public void getSelectedRowData() {
+        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+        int i = tblDisplay.getSelectedRow();
+        userId = Integer.parseInt(model.getValueAt(i, 0).toString());
+        txtFullname.setText(model.getValueAt(i, 1).toString());
+        txtUsername.setText(model.getValueAt(i, 2).toString());
+        txtPassword.setText(model.getValueAt(i, 3).toString());
+        txtMobile.setText(model.getValueAt(i, 4).toString());
+        cmbRolename.setSelectedItem(model.getValueAt(i, 5).toString());
+//        if (model.getValueAt(i, 5).toString().trim().equalsIgnoreCase("admin")) {
+//            
+//        }
     }
 
     public void clearTable() {
@@ -94,9 +118,14 @@ public class UserView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Username", "Password", "Mobile", "Role Name"
+                "ID", "Fullname", "Username", "Password", "Mobile", "Role Name"
             }
         ));
+        tblDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDisplayMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDisplay);
 
         btnClearTable.setText("Clear Table");
@@ -280,7 +309,6 @@ public class UserView extends javax.swing.JFrame {
                                 .addComponent(txtMobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClearTable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6))
@@ -302,22 +330,30 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        RoleDao roleDao = new RoleDaoImp();
         String selectRole = cmbRolename.getItemAt(cmbRolename.getSelectedIndex());
-        int id = Integer.parseInt(selectRole.substring(0, 2).trim());
-        Role role = new Role(id);
+        Role role = roleDao.getRoleByRoleName(selectRole);
         User user = new User(txtFullname.getText(), txtUsername.getText(), txtPassword.getText(), txtMobile.getText(), role);
         UserDao obj = new UserDaoImp();
         obj.save(user);
-        JOptionPane.showMessageDialog(null, "Successfully Added");
+        displayRoleListIntoTable();
+        JOptionPane.showMessageDialog(null, "Data Successfully Added");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-        User user = new User();
+        RoleDao roleDao = new RoleDaoImp();
+        String selectRole = cmbRolename.getItemAt(cmbRolename.getSelectedIndex());
+        Role role = roleDao.getRoleByRoleName(selectRole);
+        User user = new User(userId, txtFullname.getText(), txtUsername.getText(), txtPassword.getText(), txtMobile.getText(), role);
         UserDao obj = new UserDaoImp();
         obj.update(user);
-        JOptionPane.showMessageDialog(null, "Successfully Updated");
+        displayRoleListIntoTable();
+        JOptionPane.showMessageDialog(null, "Data Successfully Updated");
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
+        getSelectedRowData();
+    }//GEN-LAST:event_tblDisplayMouseClicked
 
     /**
      * @param args the command line arguments
