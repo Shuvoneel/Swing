@@ -27,7 +27,7 @@ public class StudentView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        btnGender = new javax.swing.ButtonGroup();
         lblHeading = new javax.swing.JLabel();
         lblID = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
@@ -84,10 +84,15 @@ public class StudentView extends javax.swing.JFrame {
 
         txtAge.setText("0");
 
-        buttonGroup1.add(rMale);
+        btnGender.add(rMale);
         rMale.setText("Male");
+        rMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rMaleActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(rFemale);
+        btnGender.add(rFemale);
         rFemale.setText("Female");
 
         chkOne.setText("HTML");
@@ -326,7 +331,7 @@ public class StudentView extends javax.swing.JFrame {
 
             String course = ""; // Course
             if (chkOne.isSelected()) {
-                course += chkOne.getText();
+                course = chkOne.getText();
             }
             if (chkTwo.isSelected()) {
                 course += " " + chkTwo.getText();
@@ -340,16 +345,16 @@ public class StudentView extends javax.swing.JFrame {
             String comment = txtComments.getText(); // Comments
 
             DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-            Object[] row = new Object[8];
-            row[0] = id;
-            row[1] = name;
-            row[2] = age;
-            row[3] = email;
-            row[4] = gender;
-            row[5] = course;
-            row[6] = round;
-            row[7] = comment;
-            model.addRow(row);
+            Object[] cols = new Object[8];
+            cols[0] = id;
+            cols[1] = name;
+            cols[2] = age;
+            cols[3] = email;
+            cols[4] = gender;
+            cols[5] = course;
+            cols[6] = round;
+            cols[7] = comment;
+            model.addRow(cols);
 
             Student student = new Student(id, name, age, email, gender, course, round, comment);
             List<Student> list = new ArrayList<>();
@@ -372,7 +377,7 @@ public class StudentView extends javax.swing.JFrame {
             System.out.println("Program Closed !!!");
             System.exit(0);
         } else {
-            JOptionPane.showMessageDialog(null, "OK, finish your task and then Exit !");
+            JOptionPane.showMessageDialog(null, "OK, complete your task and then Exit !");
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
@@ -381,7 +386,7 @@ public class StudentView extends javax.swing.JFrame {
         txtName.setText("");
         txtAge.setText("0");
         txtEmail.setText("");
-        buttonGroup1.clearSelection();
+        btnGender.clearSelection();
         chkOne.setSelected(false);
         chkTwo.setSelected(false);
         chkThree.setSelected(false);
@@ -391,14 +396,9 @@ public class StudentView extends javax.swing.JFrame {
 
     private void btnReadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadFileActionPerformed
 
-//        String columns[] = {"Id", "Name", "Age", "Email", "password", "Gender", "C.Course", "Round", "Comments"};
-//        DefaultTableModel tableModel;
-//        tableModel = new DefaultTableModel(0, 8);
-//        tableModel.setColumnIdentifiers(columns);
-//        tblDisplay.setModel(tableModel);
-//        WriteAndReadMethod.displayDatafromTable("Shawon", tableModel);
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         WriteAndReadMethod.displayDatafromTable(JOptionPane.showInputDialog("Enter file name to Read"), model);
+
     }//GEN-LAST:event_btnReadFileActionPerformed
 
     private void btnValidationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidationActionPerformed
@@ -448,6 +448,10 @@ public class StudentView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblDisplayMouseClicked
 
+    private void rMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rMaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rMaleActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -485,9 +489,9 @@ public class StudentView extends javax.swing.JFrame {
     private javax.swing.JButton btnClearForm;
     private javax.swing.JButton btnClearTable;
     private javax.swing.JButton btnExit;
+    private javax.swing.ButtonGroup btnGender;
     private javax.swing.JButton btnReadFile;
     private javax.swing.JButton btnValidation;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chkOne;
     private javax.swing.JCheckBox chkThree;
     private javax.swing.JCheckBox chkTwo;
