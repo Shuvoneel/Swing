@@ -265,16 +265,36 @@ public class StudentView extends javax.swing.JFrame {
 
         btnRead.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnRead.setText("Read to Table");
+        btnRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReadActionPerformed(evt);
+            }
+        });
 
         btnClearForm.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnClearForm.setText("Clear Form");
+        btnClearForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearFormActionPerformed(evt);
+            }
+        });
 
         btnClearTable.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnClearTable.setText("Clear Table");
+        btnClearTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearTableActionPerformed(evt);
+            }
+        });
 
         btnExit.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnExit.setText("Exit");
         btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ButtonPanelLayout = new javax.swing.GroupLayout(ButtonPanel);
         ButtonPanel.setLayout(ButtonPanelLayout);
@@ -390,10 +410,10 @@ public class StudentView extends javax.swing.JFrame {
             }
             String course = " ";
             if (chkOne.isSelected()) {
-                course = chkOne.getText();
+                course = chkOne.getText() + " ";
             }
             if (chkTwo.isSelected()) {
-                course += chkTwo.getText();
+                course += chkTwo.getText() + " ";
             }
             if (chkThree.isSelected()) {
                 course += chkThree.getText();
@@ -420,6 +440,40 @@ public class StudentView extends javax.swing.JFrame {
             ReadAndWriteMethodPanel.writeToFile(JOptionPane.showInputDialog("Enter file name to save"), list);
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnClearFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFormActionPerformed
+        txtId.setText("0");
+        txtName.setText("");
+        txtAge.setText("0");
+        txtEmail.setText("");
+        btgGender.clearSelection();
+        chkOne.setSelected(false);
+        chkTwo.setSelected(false);
+        chkThree.setSelected(false);
+        cmbRound.setSelectedIndex(0);
+        txtComments.setText("");
+    }//GEN-LAST:event_btnClearFormActionPerformed
+
+    private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+        ReadAndWriteMethodPanel.readToTable(JOptionPane.showInputDialog("Enter file name to Read"), model);
+    }//GEN-LAST:event_btnReadActionPerformed
+
+    private void btnClearTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearTableActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_btnClearTableActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        int dialogButton = 0;
+        int dialogResult = JOptionPane.showConfirmDialog(null, " Are You Sure ?", "Warning !!!", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            System.out.println("Program Closed !");
+            System.exit(0);
+        } else {
+            JOptionPane.showMessageDialog(null, "Okay ! Complete your task, then Exit.");
+        }
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
