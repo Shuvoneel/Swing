@@ -17,7 +17,7 @@ public class StudentService implements StudentDAO {
     
     @Override
     public void add(Student obj) {
-        String sql = "insert into student (name, age, email, gender, course, round, message) values(?,?,?,?,?,?,?)";
+        String sql = "insert into student_form (name, age, email, gender, course, round, message) values(?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, obj.getName());
@@ -37,7 +37,17 @@ public class StudentService implements StudentDAO {
     
     @Override
     public void update(Student obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "update student_form set name = ?, email = ? where id = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, obj.getName());
+            ps.setString(2, obj.getEmail());
+            ps.setInt(3, obj.getId());
+            ps.executeUpdate();
+            System.out.println("Data Updated Successfully");
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override
@@ -60,7 +70,7 @@ public class StudentService implements StudentDAO {
         List<Student> list = new ArrayList<>();
         Student student;
         
-        String sql = "select * from student";
+        String sql = "select * from student_form";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

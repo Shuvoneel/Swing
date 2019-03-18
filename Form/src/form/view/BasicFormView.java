@@ -73,7 +73,7 @@ public class BasicFormView extends javax.swing.JFrame {
         chkTwo = new javax.swing.JCheckBox();
         btnUpdate = new javax.swing.JButton();
         lblID = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -189,6 +189,11 @@ public class BasicFormView extends javax.swing.JFrame {
         lblID.setText("ID");
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -221,7 +226,7 @@ public class BasicFormView extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(btnSearch)))))
                                 .addGap(58, 58, 58))))
@@ -278,7 +283,7 @@ public class BasicFormView extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblID)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSearch))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -419,7 +424,6 @@ public class BasicFormView extends javax.swing.JFrame {
         obj.add(student);
         lblMessage.setText("Successfully Saved");
         clearTable();
-        displayTableData();
     }//GEN-LAST:event_btnAddActionPerformed
     public void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
@@ -432,8 +436,28 @@ public class BasicFormView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        
+        Student student = new Student();
+        student.setId(Integer.parseInt(txtID.getText()));
+        student.setName(txtName.getText());
+        student.setEmail(txtEmail.getText());
+        StudentDAO obj = new StudentService();
+        obj.update(student);
+        lblMessage.setText("Successfully Updated");
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+      StudentDAO obj = new StudentService();
+        if (txtID.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Enter an Student ID");
+        } else {
+            Student student = obj.getById(Integer.parseInt(txtID.getText()));
+            txtName.setText(txtName.getText());
+            txtAge.setText(txtAge.getText());
+            txtEmail.setText(txtEmail.getText());
+            
+            
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -498,7 +522,7 @@ public class BasicFormView extends javax.swing.JFrame {
     private javax.swing.JTable tblDisplay;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextArea txtMessage;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
