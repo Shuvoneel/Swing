@@ -1,6 +1,19 @@
-
 package TailorShop.dao;
 
-public class MeasurementDao {
-    
+import TailorShop.pojo.Measurement;
+import java.util.List;
+
+public interface MeasurementDao {
+
+    void createTable();
+
+    void save(Measurement m);
+
+    void update(Measurement m);
+
+    Measurement getMeasurementByClientId(int id);
+
+    Measurement getMeasurementByOrderId(int id);
+
+    List<Measurement> getList();
 }

@@ -1,0 +1,22 @@
+
+............................................................ Steps for Successfull Completion of a Software Project ........................................................................
+
+Step 1:	Requirements Collection
+Step 2:	Brain-Storming Diagram
+Step 3:	Use-Case Diagram
+Step 4:	Class Diagram
+Step 5:	Project Development
+		-> CONNECTION
+		-> POJO
+		-> DAO
+		-> DAO IMPLEMENTATION
+		-> VIEW
+		-> VALIDATION
+
+............................................................................Project Requirements..............................................................................................................
+1.	
+2.	
+3.	
+4.	
+5.	
+6.	
