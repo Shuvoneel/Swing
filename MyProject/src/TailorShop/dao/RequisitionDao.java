@@ -17,5 +17,5 @@ public interface RequisitionDao {
 
     void delete(int id);
 
-    List<Requisition> getList();
+    List<Requisition> getRequisitions();
 }

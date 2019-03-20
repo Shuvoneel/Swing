@@ -14,6 +14,10 @@ public class Measurement {
     public Measurement() {
     }
 
+    public Measurement(int id) {
+        this.id = id;
+    }
+
     public Measurement(double length, double width, double shoulder, double waist, double chest, Category category, Client client) {
         this.length = length;
         this.width = width;
@@ -43,6 +47,11 @@ public class Measurement {
         this.waist = waist;
         this.chest = chest;
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Measurement{" + "length=" + length + ", width=" + width + ", shoulder=" + shoulder + ", waist=" + waist + ", chest=" + chest + '}';
     }
 
     public int getId() {

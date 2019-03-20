@@ -37,6 +37,21 @@ public class Requisition {
         this.category = category;
     }
 
+    public Requisition(int qty, double unitPrice, double totalPrice, double advance, double due, Date orderDate, Date deliveryDate, Client client, Measurement measurement, Category category) {
+        this.qty = qty;
+        this.unitPrice = unitPrice;
+        this.totalPrice = totalPrice;
+        this.advance = advance;
+        this.due = due;
+        this.orderDate = orderDate;
+        this.deliveryDate = deliveryDate;
+        this.client = client;
+        this.measurement = measurement;
+        this.category = category;
+    }
+    
+    
+
     public int getId() {
         return id;
     }
