@@ -11,9 +11,7 @@ public interface MeasurementDao {
 
     void update(Measurement m);
 
-    Measurement getMeasurementByClientId(int id);
+    Measurement getMeasurementById(int id);
 
-    Measurement getMeasurementByOrderId(int id);
-
-    List<Measurement> getList();
+    List<Measurement> getMeasurements();
 }

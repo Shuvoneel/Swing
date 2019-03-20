@@ -23,6 +23,7 @@ public class ClientView extends javax.swing.JFrame {
      */
     public ClientView() {
         initComponents();
+        displayClientListIntoTable();
     }
 
     /**

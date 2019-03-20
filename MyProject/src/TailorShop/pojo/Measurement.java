@@ -2,10 +2,10 @@ package TailorShop.pojo;
 
 public class Measurement {
 
+    private int id;
     private double length;
     private double width;
     private double shoulder;
-    private double neck;
     private double waist;
     private double chest;
     private Category category;
@@ -14,15 +14,39 @@ public class Measurement {
     public Measurement() {
     }
 
-    public Measurement(double length, double width, double shoulder, double neck, double collarSize, String collarType, double hip, double waist, double chest, double bicep, double sleeve, double cuff, Category category, Client client) {
+    public Measurement(double length, double width, double shoulder, double waist, double chest, Category category, Client client) {
         this.length = length;
         this.width = width;
         this.shoulder = shoulder;
-        this.neck = neck;
         this.waist = waist;
         this.chest = chest;
         this.category = category;
         this.client = client;
+    }
+
+    public Measurement(int id, double length, double width, double shoulder, double waist, double chest, Category category, Client client) {
+        this.id = id;
+        this.length = length;
+        this.width = width;
+        this.shoulder = shoulder;
+        this.waist = waist;
+        this.chest = chest;
+        this.category = category;
+        this.client = client;
+    }
+
+    public Measurement(int id, double length, double width, double shoulder, double waist, double chest, Category category) {
+        this.id = id;
+        this.length = length;
+        this.width = width;
+        this.shoulder = shoulder;
+        this.waist = waist;
+        this.chest = chest;
+        this.category = category;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public double getLength() {
@@ -35,10 +59,6 @@ public class Measurement {
 
     public double getShoulder() {
         return shoulder;
-    }
-
-    public double getNeck() {
-        return neck;
     }
 
     public double getWaist() {
@@ -57,6 +77,10 @@ public class Measurement {
         return client;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setLength(double length) {
         this.length = length;
     }
@@ -67,10 +91,6 @@ public class Measurement {
 
     public void setShoulder(double shoulder) {
         this.shoulder = shoulder;
-    }
-
-    public void setNeck(double neck) {
-        this.neck = neck;
     }
 
     public void setWaist(double waist) {

@@ -46,7 +46,7 @@ public class CreateTables {
     }
 
     public static void measurementTable() {
-        String sql = " create table IF NOT EXISTS measurement(length double, width double, shoulder double, neck double, waist double, chest double, cat_id int(5), client_id int(5), FOREIGN KEY (cat_id) REFERENCES category(id), FOREIGN KEY (client_id) REFERENCES client(id))";
+        String sql = " create table IF NOT EXISTS measurement(id int(5) auto_increment primary key, length double, width double, shoulder double, waist double, chest double, cat_name varchar(30), client_id int(5), FOREIGN KEY (client_id) REFERENCES client(id))";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.execute();

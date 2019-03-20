@@ -6,11 +6,8 @@
 package TailorShop.view;
 
 import TailorShop.dao.CategoryDao;
-import TailorShop.dao.ClientDao;
 import TailorShop.pojo.Category;
-import TailorShop.pojo.Client;
 import TailorShop.service.CategoryDaoImpl;
-import TailorShop.service.ClientDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

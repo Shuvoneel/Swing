@@ -25,7 +25,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void save(Category category) {
-        String sql = "insert into category(id, catName) values(?,?)";
+        String sql = "insert into category(id, cat_name) values(?,?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, category.getId());
@@ -39,7 +39,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void update(Category category) {
-        String sql = "update category set catName=? where id=?";
+        String sql = "update category set cat_name=? where id=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, category.getCatName());
