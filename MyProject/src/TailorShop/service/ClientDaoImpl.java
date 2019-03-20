@@ -40,8 +40,20 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void update(Client c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Client client) {
+        String sql = "update client set name=?, mobile=?, email=?, address=? where id=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, client.getName());
+            ps.setInt(2, client.getMobile());
+            ps.setString(3, client.getEmail());
+            ps.setString(4, client.getAddress());
+            ps.setInt(5, client.getId());
+            ps.executeUpdate();
+            System.out.println("Successfully Updated !");
+        } catch (SQLException se) {
+            Logger.getLogger(ClientDaoImpl.class.getName()).log(Level.SEVERE, null, se);
+        }
     }
 
     @Override

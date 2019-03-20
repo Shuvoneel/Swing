@@ -7,13 +7,15 @@ public interface CategoryDao {
 
     void createTable();
 
-    void save(Category c);
+    void save(Category category);
+
+    void update(Category category);
 
     Category getCategoryById(int id);
 
-    Category getCategoryByName(String name);
+    Category getCategoryByCatName(String catName);
 
     void delete(int id);
 
-    List<Category> getList();
+    List<Category> getCategorys();
 }

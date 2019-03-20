@@ -17,6 +17,10 @@ public class Category {
         this.catName = catName;
     }
 
+    public Category(String catName) {
+        this.catName = catName;
+    }
+
     public int getId() {
         return id;
     }
