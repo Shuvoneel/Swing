@@ -37,4 +37,10 @@ public class Category {
         this.catName = catName;
     }
 
+    @Override
+    public String toString() {
+        return "Category{" + "id=" + id + ", catName=" + catName + '}';
+    }
+    
+
 }

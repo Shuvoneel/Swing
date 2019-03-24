@@ -28,7 +28,7 @@ public class RequisitionDaoImpl implements RequisitionDao {
 
     @Override
     public void save(Requisition r) {
-        String sql = "insert into requisition(id, quantity, unit_price, total_price, advance, due, order_date, delivery_date, client_id, cat_id, measurement) values(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into requisition(id, quantity, unit_price, total_price, advance, due, order_date, delivery_date, client_id, cat_id, measurement_id) values(?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, r.getId());
@@ -37,11 +37,11 @@ public class RequisitionDaoImpl implements RequisitionDao {
             ps.setDouble(4, r.getTotalPrice());
             ps.setDouble(5, r.getAdvance());
             ps.setDouble(6, r.getDue());
-            ps.setDate(7, (Date) r.getOrderDate());
-            ps.setDate(8, (Date) r.getDeliveryDate());
+            ps.setDate(7, new java.sql.Date(r.getOrderDate().getTime()));
+            ps.setDate(8, new java.sql.Date(r.getDeliveryDate().getTime()));
             ps.setInt(9, r.getClient().getId());
             ps.setInt(10, r.getCategory().getId());
-            ps.setString(11, r.getMeasurement().toString());
+            ps.setInt(11, r.getMeasurement().getId());
             ps.executeUpdate();
             System.out.println("Successfully Saved !");
         } catch (SQLException se) {

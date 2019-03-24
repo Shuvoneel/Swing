@@ -49,8 +49,6 @@ public class Requisition {
         this.measurement = measurement;
         this.category = category;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -138,6 +136,11 @@ public class Requisition {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Requisition{" + "id=" + id + ", qty=" + qty + ", unitPrice=" + unitPrice + ", totalPrice=" + totalPrice + ", advance=" + advance + ", due=" + due + ", orderDate=" + orderDate + ", deliveryDate=" + deliveryDate + ", client=" + client + ", measurement=" + measurement + ", category=" + category + '}';
     }
 
 }

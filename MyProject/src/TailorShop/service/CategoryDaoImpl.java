@@ -58,16 +58,31 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public Category getCategoryByCatName(String catName) {
+        Category category = new Category();
+        String sql = "select * from Category where cat_name=?";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, catName);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                category.setId(rs.getInt(1));
+                category.setCatName(rs.getString(2));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return category;
+    }
+}
+
+@Override
+        public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Category> getCategorys() {
+        public List<Category> getCategorys() {
         List<Category> categorys = new ArrayList();
         Category category;
         String sql = "select * from category";
@@ -77,9 +92,12 @@ public class CategoryDaoImpl implements CategoryDao {
             while (rs.next()) {
                 category = new Category(rs.getInt(1), rs.getString(2));
                 categorys.add(category);
-            }
+            
+
+}
         } catch (SQLException ex) {
-            Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryDaoImpl.class
+.getName()).log(Level.SEVERE, null, ex);
         }
 
         return categorys;

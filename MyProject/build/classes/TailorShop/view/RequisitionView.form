@@ -321,7 +321,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtQty">
           <Properties>
-            <Property name="text" type="java.lang.String" value="0"/>
+            <Property name="text" type="java.lang.String" value="2"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -345,6 +345,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtUnitPrice">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="500.0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -352,6 +355,12 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTotalPrice">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="1000.0"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalPriceActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
@@ -359,6 +368,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAdvance">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="600.0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -376,6 +388,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDue">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="400.0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>

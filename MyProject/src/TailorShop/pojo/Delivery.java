@@ -85,4 +85,9 @@ public class Delivery {
         this.order = order;
     }
 
+    @Override
+    public String toString() {
+        return "Delivery{" + "id=" + id + ", qty=" + qty + ", paidStatus=" + paidStatus + ", deliveryDate=" + deliveryDate + ", deliveryStatus=" + deliveryStatus + ", category=" + category + ", order=" + order + '}';
+    }
+
 }

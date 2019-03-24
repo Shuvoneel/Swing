@@ -70,4 +70,9 @@ public class Client {
         this.address = address;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" + "id=" + id + ", name=" + name + ", mobile=" + mobile + ", email=" + email + ", address=" + address + '}';
+    }
+
 }

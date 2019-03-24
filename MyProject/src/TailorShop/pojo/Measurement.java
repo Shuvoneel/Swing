@@ -49,11 +49,6 @@ public class Measurement {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        return "Measurement{" + "length=" + length + ", width=" + width + ", shoulder=" + shoulder + ", waist=" + waist + ", chest=" + chest + '}';
-    }
-
     public int getId() {
         return id;
     }
@@ -116,6 +111,11 @@ public class Measurement {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @Override
+    public String toString() {
+        return "Measurement{" + "length=" + length + ", width=" + width + ", shoulder=" + shoulder + ", waist=" + waist + ", chest=" + chest + '}';
     }
 
 }

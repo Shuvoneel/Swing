@@ -1,20 +1,17 @@
 package TailorShop.view;
 
 import TailorShop.dao.CategoryDao;
-import TailorShop.dao.MeasurementDao;
 import TailorShop.dao.RequisitionDao;
 import TailorShop.pojo.Category;
 import TailorShop.pojo.Client;
 import TailorShop.pojo.Measurement;
 import TailorShop.pojo.Requisition;
 import TailorShop.service.CategoryDaoImpl;
-import TailorShop.service.MeasurementDaoImpl;
 import TailorShop.service.RequisitionDaoImpl;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.internal.parser.DateParser;
 
 /**
  *
@@ -27,8 +24,8 @@ public class RequisitionView extends javax.swing.JFrame {
      */
     public RequisitionView() {
         initComponents();
-        displayMeasurementListIntoTable();
         displayCategoryAtComboBox();
+        displayRequisitionListIntoTable();
 
     }
 
@@ -147,21 +144,34 @@ public class RequisitionView extends javax.swing.JFrame {
 
         jLabel8.setText("Quantity");
 
-        txtQty.setText("0");
+        txtQty.setText("2");
 
         jLabel3.setText("Category");
 
         jLabel9.setText("Unit Price:");
 
+        txtUnitPrice.setText("500.0");
+
         jLabel10.setText("Total Price:");
 
+        txtTotalPrice.setText("1000.0");
+        txtTotalPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalPriceActionPerformed(evt);
+            }
+        });
+
         jLabel11.setText("Advance:");
+
+        txtAdvance.setText("600.0");
 
         jLabel13.setText("Due:");
 
         jLabel5.setText("Order ID:");
 
         txtOrderId.setText("0");
+
+        txtDue.setText("400.0");
 
         jLabel6.setText("Order Date:");
 
@@ -357,21 +367,26 @@ public class RequisitionView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void displayMeasurementListIntoTable() {
-        MeasurementDao dao = new MeasurementDaoImpl();
-        List<Measurement> list = dao.getMeasurements();
+    public void displayRequisitionListIntoTable() {
+        RequisitionDao dao = new RequisitionDaoImpl();
+        CategoryDao categoryDao = new CategoryDaoImpl();
+        List<Requisition> list = dao.getRequisitions();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-        Object[] cols = new Object[8];
+        Object[] cols = new Object[11];
 
         for (int i = 0; i < list.size(); i++) {
             cols[0] = list.get(i).getId();
-            cols[1] = list.get(i).getLength();
-            cols[2] = list.get(i).getWidth();
-            cols[3] = list.get(i).getShoulder();
-            cols[4] = list.get(i).getWaist();
-            cols[5] = list.get(i).getChest();
-            cols[6] = list.get(i).getCategory().getCatName();
-            cols[7] = list.get(i).getClient().getId();
+            cols[1] = list.get(i).getQty();
+            cols[2] = list.get(i).getUnitPrice();
+            cols[3] = list.get(i).getTotalPrice();
+            cols[4] = list.get(i).getAdvance();
+            cols[5] = list.get(i).getDue();
+            cols[6] = list.get(i).getOrderDate();
+            cols[7] = list.get(i).getDeliveryDate();
+            cols[8] = list.get(i).getClient().getId();
+            cols[9] = list.get(i).getMeasurement().getId();
+            Category category = categoryDao.getCategoryById(list.get(i).getCategory().getId());
+            cols[10] = category.getCatName();
             model.addRow(cols);
         }
     }
@@ -387,27 +402,27 @@ public class RequisitionView extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         RequisitionDao dao = new RequisitionDaoImpl();
-        MeasurementDao dao1 = new MeasurementDaoImpl();
-        Measurement measurement = new Measurement(Integer.parseInt(txtMsId.getText()));
-        Category category = new Category(cmbCategory.getItemAt(cmbCategory.getSelectedIndex()));
         Client client = new Client(Integer.parseInt(txtClientId.getText()));
+        Measurement measurement = new Measurement(Integer.parseInt(txtMsId.getText()));
+        CategoryDao categoryDao = new CategoryDaoImpl();
+        String catName = cmbCategory.getItemAt(cmbCategory.getSelectedIndex());
+        Category category = categoryDao.getCategoryByCatName(catName);
         //int qty, double unitPrice, double totalPrice, double advance, double due, Date orderDate, Date deliveryDate, Client client, Measurement measurement, Category category
-        Requisition requisition = new Requisition(Integer.parseInt(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), Double.parseDouble(txtAdvance.getText()), Double.parseDouble(txtDue.getText()), txtOrderDate.getText(), txtDeliveryDate.getText(), client, measurement, category);
+        java.util.Date utilOrderDate = new java.util.Date();
+        java.util.Date orderDate = new java.sql.Date(utilOrderDate.getTime());
+
+        java.util.Date utilDeliveryDate = new java.util.Date();
+        java.util.Date deliveryDate = new java.sql.Date(utilDeliveryDate.getTime());
+        Requisition requisition = new Requisition(Integer.parseInt(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), Double.parseDouble(txtAdvance.getText()), Double.parseDouble(txtDue.getText()), new Date(), new Date(), client, measurement, category);
+        System.out.println(requisition);
         dao.save(requisition);
         JOptionPane.showMessageDialog(null, "Success !");
-        displayMeasurementListIntoTable();
+        displayRequisitionListIntoTable();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
         clearTable();
-        MeasurementDao dao = new MeasurementDaoImpl();
-        CategoryDao dao1 = new CategoryDaoImpl();
-        Category category = new Category(cmbCategory.getItemAt(cmbCategory.getSelectedIndex()));
-        Measurement measurement = new Measurement(Integer.parseInt(txtOrderId.getText()), Double.parseDouble(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), Double.parseDouble(txtAdvance.getText()), Double.parseDouble(txtDue.getText()), category);
-        dao.update(measurement);
-        JOptionPane.showMessageDialog(null, "Update Success !");
-        displayMeasurementListIntoTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -420,6 +435,9 @@ public class RequisitionView extends javax.swing.JFrame {
         txtAdvance.setText("");
         txtDue.setText("");
         txtQty.setText("");
+        txtDeliveryDate.setText("");
+        txtOrderDate.setText("");
+        txtMsId.setText("0");
 
     }//GEN-LAST:event_btnClearActionPerformed
 
@@ -427,6 +445,10 @@ public class RequisitionView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         model.setRowCount(0);
     }//GEN-LAST:event_btnClearTableActionPerformed
+
+    private void txtTotalPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalPriceActionPerformed
 
     public void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();

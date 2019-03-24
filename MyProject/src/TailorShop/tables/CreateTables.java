@@ -57,7 +57,7 @@ public class CreateTables {
     }
 
     public static void requisitionTable() {
-        String sql = "create table IF NOT EXISTS requisition(id int(5)  auto_increment primary key, quantity int(3), unit_price double, total_price double, advance double, due double, order_date date, delivery_date date, client_id int(5), cat_id int(5), measurement varchar(50), FOREIGN KEY (client_id) REFERENCES client(id), FOREIGN KEY (cat_id) REFERENCES category(id))";
+        String sql = "create table IF NOT EXISTS requisition(id int(5)  auto_increment primary key, quantity int(3), unit_price double, total_price double, advance double, due double, order_date date, delivery_date date, client_id int(5), cat_id int(5), measurement_id int(5), FOREIGN KEY (client_id) REFERENCES client(id), FOREIGN KEY (cat_id) REFERENCES category(id), FOREIGN KEY (measurement_id) REFERENCES measurement(id))";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.execute();
