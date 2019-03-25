@@ -1,12 +1,14 @@
 package TailorShop.view;
 
 import TailorShop.dao.CategoryDao;
+import TailorShop.dao.MeasurementDao;
 import TailorShop.dao.RequisitionDao;
 import TailorShop.pojo.Category;
 import TailorShop.pojo.Client;
 import TailorShop.pojo.Measurement;
 import TailorShop.pojo.Requisition;
 import TailorShop.service.CategoryDaoImpl;
+import TailorShop.service.MeasurementDaoImpl;
 import TailorShop.service.RequisitionDaoImpl;
 import java.util.Date;
 import java.util.List;
@@ -403,16 +405,17 @@ public class RequisitionView extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         RequisitionDao dao = new RequisitionDaoImpl();
         Client client = new Client(Integer.parseInt(txtClientId.getText()));
+        MeasurementDao measurementDao = new MeasurementDaoImpl();
         Measurement measurement = new Measurement(Integer.parseInt(txtMsId.getText()));
         CategoryDao categoryDao = new CategoryDaoImpl();
         String catName = cmbCategory.getItemAt(cmbCategory.getSelectedIndex());
         Category category = categoryDao.getCategoryByCatName(catName);
         //int qty, double unitPrice, double totalPrice, double advance, double due, Date orderDate, Date deliveryDate, Client client, Measurement measurement, Category category
-        java.util.Date utilOrderDate = new java.util.Date();
-        java.util.Date orderDate = new java.sql.Date(utilOrderDate.getTime());
-
-        java.util.Date utilDeliveryDate = new java.util.Date();
-        java.util.Date deliveryDate = new java.sql.Date(utilDeliveryDate.getTime());
+//        java.util.Date utilOrderDate = new java.util.Date();
+//        java.util.Date orderDate = new java.sql.Date(utilOrderDate.getTime());
+//
+//        java.util.Date utilDeliveryDate = new java.util.Date();
+//        java.util.Date deliveryDate = new java.sql.Date(utilDeliveryDate.getTime());
         Requisition requisition = new Requisition(Integer.parseInt(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), Double.parseDouble(txtAdvance.getText()), Double.parseDouble(txtDue.getText()), new Date(), new Date(), client, measurement, category);
         System.out.println(requisition);
         dao.save(requisition);

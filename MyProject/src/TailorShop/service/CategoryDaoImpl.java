@@ -74,15 +74,14 @@ public class CategoryDaoImpl implements CategoryDao {
         }
         return category;
     }
-}
 
-@Override
-        public void delete(int id) {
+    @Override
+    public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-        public List<Category> getCategorys() {
+    public List<Category> getCategorys() {
         List<Category> categorys = new ArrayList();
         Category category;
         String sql = "select * from category";
@@ -92,15 +91,11 @@ public class CategoryDaoImpl implements CategoryDao {
             while (rs.next()) {
                 category = new Category(rs.getInt(1), rs.getString(2));
                 categorys.add(category);
-            
-
-}
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(CategoryDaoImpl.class
-.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return categorys;
     }
-
 }
