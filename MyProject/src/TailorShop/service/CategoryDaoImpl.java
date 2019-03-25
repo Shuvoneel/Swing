@@ -3,7 +3,6 @@ package TailorShop.service;
 import TailorShop.connection.DBConnection;
 import TailorShop.dao.CategoryDao;
 import TailorShop.pojo.Category;
-import TailorShop.pojo.Client;
 import TailorShop.tables.CreateTables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,13 +52,28 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public Category getCategoryById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Category category = new Category();
+        String sql = "select * from category where id=?";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                category.setId(rs.getInt(1));
+                category.setCatName(rs.getString(2));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return category;
     }
 
+    
     @Override
     public Category getCategoryByCatName(String catName) {
         Category category = new Category();
-        String sql = "select * from Category where cat_name=?";
+        String sql = "select * from category where cat_name=?";
         try {
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, catName);

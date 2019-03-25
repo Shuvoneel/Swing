@@ -21,7 +21,8 @@ public class CreateTables {
             Logger.getLogger(CreateTables.class.getName()).log(Level.SEVERE, null, se);
         }
     }
-
+    
+    
     public static void clientTable() {
         String sql = " create table IF NOT EXISTS client(id int(5) auto_increment primary key, name varchar(30), "
                 + "mobile int(11) unique, email varchar(30), address varchar(50))";

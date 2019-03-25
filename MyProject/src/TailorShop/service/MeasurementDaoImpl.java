@@ -89,4 +89,9 @@ public class MeasurementDaoImpl implements MeasurementDao {
         return measurements;
     }
 
+    @Override
+    public Measurement getCatNameByMsId(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

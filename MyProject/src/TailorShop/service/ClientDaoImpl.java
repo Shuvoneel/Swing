@@ -2,6 +2,7 @@ package TailorShop.service;
 
 import TailorShop.connection.DBConnection;
 import TailorShop.dao.ClientDao;
+import TailorShop.pojo.Category;
 import TailorShop.pojo.Client;
 import TailorShop.tables.CreateTables;
 import java.sql.Connection;
@@ -58,7 +59,24 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public Client getClientById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Client client = new Client();
+        String sql = "select * from client where id=?";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                client.setId(rs.getInt(1));
+                client.setName(rs.getString(2));
+                client.setMobile(rs.getInt(3));
+                client.setEmail(rs.getString(4));
+                client.setAddress(rs.getString(5));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return client;
     }
 
     @Override
@@ -68,7 +86,24 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public Client getClientByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Client client = new Client();
+        String sql = "select * from client where name=?";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, name);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                client.setId(rs.getInt(1));
+                client.setName(rs.getString(2));
+                client.setMobile(rs.getInt(3));
+                client.setEmail(rs.getString(4));
+                client.setAddress(rs.getString(5));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return client;
     }
 
     @Override

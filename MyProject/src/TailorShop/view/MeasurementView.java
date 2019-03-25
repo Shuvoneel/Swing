@@ -1,11 +1,13 @@
 package TailorShop.view;
 
 import TailorShop.dao.CategoryDao;
+import TailorShop.dao.ClientDao;
 import TailorShop.dao.MeasurementDao;
 import TailorShop.pojo.Category;
 import TailorShop.pojo.Client;
 import TailorShop.pojo.Measurement;
 import TailorShop.service.CategoryDaoImpl;
+import TailorShop.service.ClientDaoImpl;
 import TailorShop.service.MeasurementDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,6 +25,7 @@ public class MeasurementView extends javax.swing.JFrame {
     public MeasurementView() {
         initComponents();
         displayMeasurementListIntoTable();
+        displayClientAtComboBox();
         displayCategoryAtComboBox();
 
     }
@@ -42,7 +45,6 @@ public class MeasurementView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        txtClientId = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
@@ -60,6 +62,7 @@ public class MeasurementView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         txtChest = new javax.swing.JTextField();
+        cmbClient = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDisplay = new javax.swing.JTable();
@@ -109,9 +112,7 @@ public class MeasurementView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel4.setText("Client ID:");
-
-        txtClientId.setText("0");
+        jLabel4.setText("Client Name:");
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -162,14 +163,6 @@ public class MeasurementView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtId))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(txtLength))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(txtClientId, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -179,14 +172,22 @@ public class MeasurementView extends javax.swing.JFrame {
                             .addComponent(txtChest)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(99, 99, 99)
-                        .addComponent(btnSave)))
+                        .addComponent(btnSave))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLength)
+                            .addComponent(cmbClient, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnUpdate)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -204,7 +205,7 @@ public class MeasurementView extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(txtWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(89, 89, 89))
+                .addGap(33, 33, 33))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,13 +214,14 @@ public class MeasurementView extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtClientId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(cmbClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,7 +254,7 @@ public class MeasurementView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Length", "Width", "Shoulder", "Waist", "Chest", "Category", "Client ID"
+                "ID", "Length", "Width", "Shoulder", "Waist", "Chest", "Category", "Client Name"
             }
         ));
         jScrollPane1.setViewportView(tblDisplay);
@@ -298,8 +300,8 @@ public class MeasurementView extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -320,6 +322,7 @@ public class MeasurementView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     public void displayMeasurementListIntoTable() {
         MeasurementDao dao = new MeasurementDaoImpl();
+        ClientDao clientDao = new ClientDaoImpl();
         List<Measurement> list = dao.getMeasurements();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         Object[] cols = new Object[8];
@@ -332,8 +335,18 @@ public class MeasurementView extends javax.swing.JFrame {
             cols[4] = list.get(i).getWaist();
             cols[5] = list.get(i).getChest();
             cols[6] = list.get(i).getCategory().getCatName();
-            cols[7] = list.get(i).getClient().getId();
+            Client client = clientDao.getClientById(list.get(i).getClient().getId());
+            cols[7] = client.getName();
             model.addRow(cols);
+        }
+    }
+
+    public void displayClientAtComboBox() {
+        ClientDao dao = new ClientDaoImpl();
+        List<Client> clients = dao.getClients();
+        cmbClient.addItem("Select a Client");
+        for (Client client : clients) {
+            cmbClient.addItem(client.getName());
         }
     }
 
@@ -348,9 +361,11 @@ public class MeasurementView extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         MeasurementDao dao = new MeasurementDaoImpl();
+        ClientDao clientDao = new ClientDaoImpl();
+        String clientName = cmbClient.getItemAt(cmbClient.getSelectedIndex());
+        Client client = clientDao.getClientByName(clientName);
         CategoryDao dao1 = new CategoryDaoImpl();
         Category category = new Category(cmbCategory.getItemAt(cmbCategory.getSelectedIndex()));
-        Client client = new Client(Integer.parseInt(txtClientId.getText()));
         //Measurement(double length, double width, double shoulder, double waist, double chest, Category category, Client client
         Measurement measurement = new Measurement(Double.parseDouble(txtLength.getText()), Double.parseDouble(txtWidth.getText()), Double.parseDouble(txtShoulder.getText()), Double.parseDouble(txtWaist.getText()), Double.parseDouble(txtChest.getText()), category, client);
         dao.save(measurement);
@@ -372,7 +387,7 @@ public class MeasurementView extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         txtId.setText("0");
-        txtClientId.setText("0");
+        cmbClient.setSelectedIndex(0);
         cmbCategory.setSelectedIndex(0);
         txtLength.setText("");
         txtWidth.setText("");
@@ -435,6 +450,7 @@ public class MeasurementView extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbCategory;
+    private javax.swing.JComboBox<String> cmbClient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -452,7 +468,6 @@ public class MeasurementView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDisplay;
     private javax.swing.JTextField txtChest;
-    private javax.swing.JTextField txtClientId;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtLength;
     private javax.swing.JTextField txtShoulder;

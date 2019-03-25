@@ -9,7 +9,6 @@ public class Voucher {
     private double advance;
     private double due;
     private Requisition order;
-    private Category category;
 
     public Voucher() {
     }
@@ -26,7 +25,6 @@ public class Voucher {
         this.advance = advance;
         this.due = due;
         this.order = order;
-        this.category = category;
     }
 
     public int getId() {
@@ -57,9 +55,7 @@ public class Voucher {
         return order;
     }
 
-    public Category getCategory() {
-        return category;
-    }
+    
 
     public void setId(int id) {
         this.id = id;
@@ -89,8 +85,5 @@ public class Voucher {
         this.order = order;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
 }

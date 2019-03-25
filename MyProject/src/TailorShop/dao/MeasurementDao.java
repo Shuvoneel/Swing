@@ -13,5 +13,7 @@ public interface MeasurementDao {
 
     Measurement getMeasurementById(int id);
 
+    Measurement getCatNameByMsId(int id);
+
     List<Measurement> getMeasurements();
 }

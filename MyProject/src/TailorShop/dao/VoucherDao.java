@@ -13,8 +13,6 @@ public interface VoucherDao {
 
     Voucher getVoucherById(int id);
 
-    Voucher getVoucherByOrderId(int id);
-
     void delete(int id);
 
     List<Voucher> getList();
