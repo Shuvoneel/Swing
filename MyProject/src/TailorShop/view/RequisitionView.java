@@ -1,5 +1,6 @@
 package TailorShop.view;
 
+import TailorShop.connection.DBConnection;
 import TailorShop.dao.CategoryDao;
 import TailorShop.dao.ClientDao;
 import TailorShop.dao.MeasurementDao;
@@ -13,9 +14,17 @@ import TailorShop.service.ClientDaoImpl;
 import TailorShop.service.MeasurementDaoImpl;
 import TailorShop.service.RequisitionDaoImpl;
 import TailorShop.util.UtilDate;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,7 +41,6 @@ public class RequisitionView extends javax.swing.JFrame {
         displayClientAtComboBox();
         displayCategoryAtComboBox();
         displayRequisitionListIntoTable();
-        
     }
 
     /**
@@ -51,7 +59,6 @@ public class RequisitionView extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtQty = new javax.swing.JTextField();
@@ -67,12 +74,8 @@ public class RequisitionView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtOrderId = new javax.swing.JTextField();
         txtDue = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtOrderDate = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         txtMsId = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtDeliveryDate = new javax.swing.JTextField();
         cmbClient = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -101,6 +104,7 @@ public class RequisitionView extends javax.swing.JFrame {
         dspAdvance = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         dspDue = new javax.swing.JTextField();
+        btnPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,13 +159,6 @@ public class RequisitionView extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
         btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,11 +179,6 @@ public class RequisitionView extends javax.swing.JFrame {
         jLabel10.setText("Total Price:");
 
         txtTotalPrice.setText("1000.0");
-        txtTotalPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalPriceActionPerformed(evt);
-            }
-        });
 
         jLabel11.setText("Advance:");
 
@@ -200,11 +192,7 @@ public class RequisitionView extends javax.swing.JFrame {
 
         txtDue.setText("400.0");
 
-        jLabel6.setText("Order Date:");
-
         jLabel14.setText("Measurement ID:");
-
-        jLabel7.setText("Delivery Date:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -213,64 +201,57 @@ public class RequisitionView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(255, 255, 255)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSave)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnClear)
+                                .addGap(15, 15, 15)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtAdvance, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(txtMsId)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)))
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDue, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMsId, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbClient, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)))
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtOrderDate))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtAdvance, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtUnitPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(txtUnitPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtDeliveryDate)))
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addComponent(btnSave)
-                        .addGap(46, 46, 46)
-                        .addComponent(btnUpdate)
-                        .addGap(16, 16, 16)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtQty, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDue, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbClient, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,27 +282,17 @@ public class RequisitionView extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel13)
-                                .addComponent(txtDue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(txtOrderDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7)
-                                .addComponent(txtDeliveryDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel14))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(txtDue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)
                             .addComponent(txtMsId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtAdvance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11)))
-                .addGap(50, 50, 50)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnUpdate)
                     .addComponent(btnClear))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -360,15 +331,16 @@ public class RequisitionView extends javax.swing.JFrame {
 
         jLabel23.setText("Total Price:");
 
-        dspTotalPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dspTotalPriceActionPerformed(evt);
-            }
-        });
-
         jLabel24.setText("Advance:");
 
         jLabel25.setText("Due Payment:");
+
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -377,7 +349,10 @@ public class RequisitionView extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPrint))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -390,7 +365,7 @@ public class RequisitionView extends javax.swing.JFrame {
                             .addComponent(dspClient)
                             .addComponent(dspCategory, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
                             .addComponent(dspQty, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -426,7 +401,9 @@ public class RequisitionView extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(btnPrint))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -473,7 +450,7 @@ public class RequisitionView extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -520,10 +497,6 @@ public class RequisitionView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTotalPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalPriceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTotalPriceActionPerformed
-
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         txtOrderId.setText("0");
         cmbCategory.setSelectedIndex(0);
@@ -534,15 +507,8 @@ public class RequisitionView extends javax.swing.JFrame {
         txtAdvance.setText("");
         txtDue.setText("");
         txtQty.setText("");
-        txtDeliveryDate.setText("");
-        txtOrderDate.setText("");
         txtMsId.setText("0");
     }//GEN-LAST:event_btnClearActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        
-        clearTable();
-    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         RequisitionDao dao = new RequisitionDaoImpl();
@@ -555,20 +521,25 @@ public class RequisitionView extends javax.swing.JFrame {
         String catName = cmbCategory.getItemAt(cmbCategory.getSelectedIndex());
         Category category = categoryDao.getCategoryByCatName(catName);
         //int qty, double unitPrice, double totalPrice, double advance, double due, Date orderDate, Date deliveryDate, Client client, Measurement measurement, Category category
-        java.util.Date utilOrderDate = new java.util.Date();
-        java.util.Date orderDate = new java.sql.Date(utilOrderDate.getTime());
-        
-        java.util.Date utilDeliveryDate = new java.util.Date();
-        java.util.Date deliveryDate = new java.sql.Date(utilDeliveryDate.getTime());
-        Requisition requisition = new Requisition(Integer.parseInt(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), Double.parseDouble(txtAdvance.getText()), Double.parseDouble(txtDue.getText()), new Date(), UtilDate.getDeliveryDate(new Date(), 7), client, measurement, category);
+
+        Date orderDate = new Date();
+        Date deliveryDate = UtilDate.getDeliveryDate(new Date(), 10);
+        Requisition requisition = new Requisition(Integer.parseInt(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), Double.parseDouble(txtAdvance.getText()), Double.parseDouble(txtDue.getText()), orderDate, deliveryDate, client, measurement, category);
         clearTable();
         dao.save(requisition);
-        JOptionPane.showMessageDialog(null, "Success ! ");
         displayRequisitionListIntoTable();
+        JOptionPane.showMessageDialog(null, "Success ! ");
+
+        // Invoice
         dspClient.setText(cmbClient.getItemAt(cmbClient.getSelectedIndex()));
-        dspDeliveryDate.setText(txtDeliveryDate.getText());
-        dspOrderId.setText(txtOrderId.getText());
-        dspOrderDate.setText(txtOrderDate.getText());
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String deliveryDateString = format.format(requisition.getDeliveryDate());
+        dspDeliveryDate.setText(deliveryDateString);
+
+        dspOrderId.setText(String.valueOf(dao.getLastRow()));
+        String orderDateString = format.format(requisition.getOrderDate());
+        dspOrderDate.setText(orderDateString);
         dspCategory.setText(cmbCategory.getItemAt(cmbCategory.getSelectedIndex()));
         dspMsId.setText(txtMsId.getText());
         dspQty.setText(txtQty.getText());
@@ -578,9 +549,18 @@ public class RequisitionView extends javax.swing.JFrame {
         dspDue.setText(txtDue.getText());
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void dspTotalPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dspTotalPriceActionPerformed
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dspTotalPriceActionPerformed
+        MessageFormat header = new MessageFormat("Print  Report ");
+
+        MessageFormat footer = new MessageFormat("Page(0, number, integer)");
+        try {
+            tblDisplay.print(JTable.PrintMode.NORMAL, header, footer);
+        } catch (Exception e) {
+            System.err.println("Can not Print %s%n" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     public void displayRequisitionListIntoTable() {
         clearTable();
         RequisitionDao dao = new RequisitionDaoImpl();
@@ -589,7 +569,7 @@ public class RequisitionView extends javax.swing.JFrame {
         List<Requisition> list = dao.getRequisitions();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         Object[] cols = new Object[11];
-        
+
         for (int i = 0; i < list.size(); i++) {
             cols[0] = list.get(i).getId();
             cols[1] = list.get(i).getQty();
@@ -607,7 +587,7 @@ public class RequisitionView extends javax.swing.JFrame {
             model.addRow(cols);
         }
     }
-    
+
     public void displayClientAtComboBox() {
         ClientDao dao = new ClientDaoImpl();
         List<Client> clients = dao.getClients();
@@ -616,7 +596,7 @@ public class RequisitionView extends javax.swing.JFrame {
             cmbClient.addItem(client.getName());
         }
     }
-    
+
     public void displayCategoryAtComboBox() {
         CategoryDao dao = new CategoryDaoImpl();
         List<Category> categorys = dao.getCategorys();
@@ -625,7 +605,7 @@ public class RequisitionView extends javax.swing.JFrame {
             cmbCategory.addItem(category.getCatName());
         }
     }
-    
+
     public void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         model.setRowCount(0);
@@ -671,8 +651,8 @@ public class RequisitionView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbCategory;
     private javax.swing.JComboBox<String> cmbClient;
     private javax.swing.JTextField dspAdvance;
@@ -707,8 +687,6 @@ public class RequisitionView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -719,10 +697,8 @@ public class RequisitionView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDisplay;
     private javax.swing.JTextField txtAdvance;
-    private javax.swing.JTextField txtDeliveryDate;
     private javax.swing.JTextField txtDue;
     private javax.swing.JTextField txtMsId;
-    private javax.swing.JTextField txtOrderDate;
     private javax.swing.JTextField txtOrderId;
     private javax.swing.JTextField txtQty;
     private javax.swing.JTextField txtTotalPrice;

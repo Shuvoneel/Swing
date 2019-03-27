@@ -5,6 +5,6 @@ import TailorShop.tables.CreateTables;
 public class TestTable {
 
     public static void main(String[] args) {
-        CreateTables.requisitionTable();
+        CreateTables.clientTable();
     }
 }

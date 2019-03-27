@@ -91,4 +91,21 @@ public class RequisitionDaoImpl implements RequisitionDao {
         return requisitions;
     }
 
+    public int getLastRow() {
+        int idNo = 0;
+        String sql = "select * from requisition ORDER BY id DESC LIMIT 1;";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                idNo = rs.getInt(1);
+            }
+            System.out.println("Successfully Retrieved ! ");
+        } catch (Exception e) {
+            Logger.getLogger(RequisitionDaoImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return idNo;
+    }
+
 }

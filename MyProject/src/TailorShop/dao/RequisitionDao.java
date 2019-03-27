@@ -18,4 +18,6 @@ public interface RequisitionDao {
     void delete(int id);
 
     List<Requisition> getRequisitions();
+
+    public int getLastRow();
 }
