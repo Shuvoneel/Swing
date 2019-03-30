@@ -21,8 +21,7 @@ public class CreateTables {
             Logger.getLogger(CreateTables.class.getName()).log(Level.SEVERE, null, se);
         }
     }
-    
-    
+
     public static void clientTable() {
         String sql = " create table IF NOT EXISTS client(id int(5) auto_increment primary key, name varchar(30), "
                 + "mobile int(11) unique, email varchar(30), address varchar(50))";
@@ -68,34 +67,23 @@ public class CreateTables {
         }
     }
 
+    public static void deliveryTable() {
+        String sql = "create table IF NOT EXISTS delivery(id int(5) auto_increment primary key, client_name varchar(20), order_id int(5), quantity int(3), category varchar(20), total_price double, due double, order_date date, delivery_date date, FOREIGN KEY (order_id) REFERENCES requisition(id))";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.execute();
+            System.out.println("Delivery Table Created");
+        } catch (SQLException se) {
+            Logger.getLogger(CreateTables.class.getName()).log(Level.SEVERE, null, se);
+        }
+    }
+
     public static void summaryTable() {
         String sql = "create table IF NOT EXISTS summary(id int(5)  auto_increment primary key, order_date date, quantity int(3), delivery_status varchar(20), client_id int(5), order_id int(5), FOREIGN KEY (client_id) REFERENCES client(id), FOREIGN KEY (order_id) REFERENCES requisition(id))";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.execute();
             System.out.println("Summary Table Created");
-        } catch (SQLException se) {
-            Logger.getLogger(CreateTables.class.getName()).log(Level.SEVERE, null, se);
-        }
-    }
-
-    public static void deliveryTable() {
-        String sql = "create table IF NOT EXISTS delivery(id int(5) auto_increment primary key, quantity int(3), paid_status varchar(20), delivery_date date, delivery_status varchar(20), cat_id int(5), order_id int(5), FOREIGN KEY (cat_id) REFERENCES category(id), FOREIGN KEY (order_id) REFERENCES requisition(id))";
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.execute();
-            System.out.println("Delivery Table Created");
-        } catch (SQLException se) {
-            Logger.getLogger(CreateTables.class.getName()).log(Level.SEVERE, null, se);
-        }
-    }
-
-    public static void voucherTable() {
-        String sql = "create table IF NOT EXISTS delivery(id int(5) auto_increment primary key, quantity int(3), unit_price double, total_price double, advance double, due double, order_id int(5), cat_id int(5), FOREIGN KEY (order_id) REFERENCES requisition(id), FOREIGN KEY (cat_id) REFERENCES category(id))";
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.execute();
-            System.out.println("Delivery Table Created");
         } catch (SQLException se) {
             Logger.getLogger(CreateTables.class.getName()).log(Level.SEVERE, null, se);
         }

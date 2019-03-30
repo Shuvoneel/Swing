@@ -18,14 +18,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RequisitionDaoImpl implements RequisitionDao {
-
+    
     Connection conn = DBConnection.getDBConnection();
-
+    
     @Override
     public void createTable() {
         CreateTables.requisitionTable();
     }
-
+    
     @Override
     public void save(Requisition r) {
         String sql = "insert into requisition(id, quantity, unit_price, total_price, advance, due, order_date, delivery_date, client_id, cat_id, measurement_id) values(?,?,?,?,?,?,?,?,?,?,?)";
@@ -48,27 +48,50 @@ public class RequisitionDaoImpl implements RequisitionDao {
             Logger.getLogger(RequisitionDaoImpl.class.getName()).log(Level.SEVERE, null, se);
         }
     }
-
+    
     @Override
     public void update(Requisition r) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public Requisition getRequisitionById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Requisition requisition = new Requisition();
+        String sql = "select * from requisition where id=?";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                requisition.setId(rs.getInt(1));
+                requisition.setQty(rs.getInt(2));
+                requisition.setUnitPrice(rs.getDouble(3));
+                requisition.setTotalPrice(rs.getDouble(4));
+                requisition.setAdvance(rs.getDouble(5));
+                requisition.setDue(rs.getDouble(6));
+                requisition.setOrderDate(rs.getDate(7));
+                requisition.setDeliveryDate(rs.getDate(8));
+                requisition.setClient(new Client(rs.getInt(9)));
+                requisition.setCategory(new Category(rs.getInt(10)));
+                requisition.setMeasurement(new Measurement(rs.getInt(11)));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RequisitionDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return requisition;
     }
-
+    
     @Override
     public Requisition getRequisitionByClientMobile(int mobile) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public List<Requisition> getRequisitions() {
         List<Requisition> requisitions = new ArrayList();
@@ -87,16 +110,16 @@ public class RequisitionDaoImpl implements RequisitionDao {
         } catch (SQLException ex) {
             Logger.getLogger(RequisitionDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return requisitions;
     }
-
+    
     public int getLastRow() {
         int idNo = 0;
         String sql = "select * from requisition ORDER BY id DESC LIMIT 1;";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-
+            
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 idNo = rs.getInt(1);
@@ -107,5 +130,5 @@ public class RequisitionDaoImpl implements RequisitionDao {
         }
         return idNo;
     }
-
+    
 }
