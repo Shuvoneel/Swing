@@ -1,6 +1,7 @@
 package TailorShop.dao;
 
 import TailorShop.pojo.Summary;
+import java.util.Date;
 import java.util.List;
 
 public interface SummaryDao {
@@ -9,9 +10,9 @@ public interface SummaryDao {
 
     void save(Summary s);
 
-    Summary getSummaryById(int id);
+    void update(Summary s);
 
-    Summary getSummaryByClientId(int id);
+    Summary getSummaryById(int id);
 
     List<Summary> getList();
 }

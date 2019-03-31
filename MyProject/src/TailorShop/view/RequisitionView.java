@@ -1,6 +1,5 @@
 package TailorShop.view;
 
-import TailorShop.connection.DBConnection;
 import TailorShop.dao.CategoryDao;
 import TailorShop.dao.ClientDao;
 import TailorShop.dao.MeasurementDao;
@@ -14,15 +13,10 @@ import TailorShop.service.ClientDaoImpl;
 import TailorShop.service.MeasurementDaoImpl;
 import TailorShop.service.RequisitionDaoImpl;
 import TailorShop.util.UtilDate;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -547,6 +541,21 @@ public class RequisitionView extends javax.swing.JFrame {
         dspTotalPrice.setText(txtTotalPrice.getText());
         dspAdvance.setText(txtAdvance.getText());
         dspDue.setText(txtDue.getText());
+
+        // Summary Table
+//        SummaryDao summaryDao = new SummaryDaoImpl();
+//
+//        Summary summary = summaryDao.getSummaryByDate(requisition.getOrderDate());
+//
+//        if (summary.getDate() != null) {
+//
+//            int totalOrder = summary.getTotalOrder();
+//
+//            Summary summaryUp = new Summary(summary.getId(), summary.getDate(), totalOrder);
+//            summaryDao.update(summaryUp);
+//            JOptionPane.showMessageDialog(null, "Order success");
+//
+//        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed

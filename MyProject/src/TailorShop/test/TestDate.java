@@ -1,5 +1,6 @@
 package TailorShop.test;
 
+import TailorShop.service.SummaryDaoImpl;
 import TailorShop.util.UtilDate;
 import java.util.Date;
 

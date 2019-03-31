@@ -1,11 +1,14 @@
 package TailorShop.service;
 
+import TailorShop.connection.DBConnection;
 import TailorShop.dao.DeliveryDao;
 import TailorShop.pojo.Delivery;
 import TailorShop.tables.CreateTables;
+import java.sql.Connection;
 import java.util.List;
 
 public class DeliveryDaoImpl implements DeliveryDao {
+    Connection conn = DBConnection.getDBConnection();
 
     @Override
     public void createTable() {

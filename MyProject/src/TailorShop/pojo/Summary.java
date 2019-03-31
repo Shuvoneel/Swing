@@ -5,11 +5,8 @@ import java.util.Date;
 public class Summary {
 
     private int id;
-    private Date orderDate;
-    private int qty;
-    private String deliveryStatus;
-    private Client client;
-    private Requisition requisition;
+    private Date date;
+    private int totalOrder;
 
     public Summary() {
     }
@@ -18,61 +15,38 @@ public class Summary {
         this.id = id;
     }
 
-    public Summary(int id, Date orderDate, int qty, String deliveryStatus, Client client, Requisition order) {
+    public Summary(Date date) {
+        this.date = date;
+    }
+
+    public Summary(int id, Date date, int totalOrder) {
         this.id = id;
-        this.orderDate = orderDate;
-        this.qty = qty;
-        this.deliveryStatus = deliveryStatus;
-        this.client = client;
-        this.requisition = order;
+        this.date = date;
+        this.totalOrder = totalOrder;
     }
 
     public int getId() {
         return id;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
+    public Date getDate() {
+        return date;
     }
 
-    public int getQty() {
-        return qty;
-    }
-
-    public String getDeliveryStatus() {
-        return deliveryStatus;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public Requisition getOrder() {
-        return requisition;
+    public int getTotalOrder() {
+        return totalOrder;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
-    public void setDeliveryStatus(String deliveryStatus) {
-        this.deliveryStatus = deliveryStatus;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public void setOrder(Requisition order) {
-        this.requisition = order;
+    public void setTotalOrder(int totalOrder) {
+        this.totalOrder = totalOrder;
     }
 
 }

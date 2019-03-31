@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class DeliveryView extends javax.swing.JFrame {
@@ -37,7 +38,7 @@ public class DeliveryView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnSave = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         cmbOrderId = new javax.swing.JComboBox<>();
@@ -89,10 +90,10 @@ public class DeliveryView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnSave.setText("Search");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -105,12 +106,6 @@ public class DeliveryView extends javax.swing.JFrame {
 
         jLabel5.setText("Search by Order ID:");
 
-        cmbOrderId.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbOrderIdItemStateChanged(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -122,7 +117,7 @@ public class DeliveryView extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(cmbOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnSave)
+                        .addComponent(btnSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClear)))
                 .addContainerGap(39, Short.MAX_VALUE))
@@ -136,7 +131,7 @@ public class DeliveryView extends javax.swing.JFrame {
                     .addComponent(cmbOrderId))
                 .addGap(57, 57, 57)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
+                    .addComponent(btnSearch)
                     .addComponent(btnClear))
                 .addContainerGap(535, Short.MAX_VALUE))
         );
@@ -208,17 +203,18 @@ public class DeliveryView extends javax.swing.JFrame {
         cmbOrderId.setSelectedIndex(0);
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
-    }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void cmbOrderIdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbOrderIdItemStateChanged
-        // TODO add your handling code here:
-        int id = Integer.parseInt(cmbOrderId.getItemAt(cmbOrderId.getSelectedIndex()));
-        displayListIntoTable(id);
-    }//GEN-LAST:event_cmbOrderIdItemStateChanged
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        String ids = cmbOrderId.getItemAt(cmbOrderId.getSelectedIndex()).trim();
+        if (ids == "Select an ID") {
+            JOptionPane.showMessageDialog(null, "Select an ID to get the data");
+        } else {
+            int id = Integer.parseInt(cmbOrderId.getItemAt(cmbOrderId.getSelectedIndex()).trim());
+            displayListIntoTable(id);
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     public void displayListIntoTable(int id) {
+        clearTable();
         try {
             RequisitionDao dao = new RequisitionDaoImpl();
             ClientDao clientDao = new ClientDaoImpl();
@@ -230,17 +226,16 @@ public class DeliveryView extends javax.swing.JFrame {
             for (int i = 0; i < list.size(); i++) {
                 cols[0] = list.get(i).getId();
                 Client client_id = clientDao.getClientById(list.get(i).getClient().getId());
-                cols[1] = client_id;
-                Requisition requisition_id = dao.getRequisitionById(list.get(i).getId());
-                cols[2] = requisition_id;
-                Requisition quantity = dao.getRequisitionById(list.get(i).getQty());
-                cols[3] = quantity;
+                cols[1] = client_id.getName();
+
+                cols[2] = list.get(i).getId();
+
+                cols[3] = list.get(i).getQty();
                 Category category = categoryDao.getCategoryById(list.get(i).getCategory().getId());
                 cols[4] = category.getCatName();
-                Requisition total_price = dao.getRequisitionById((int) list.get(i).getTotalPrice());
-                cols[5] = total_price;
-                Requisition due = dao.getRequisitionById((int) list.get(i).getDue());
-                cols[6] = due;
+
+                cols[5] = list.get(i).getTotalPrice();
+                cols[6] = list.get(i).getDue();
                 cols[7] = list.get(i).getOrderDate();
                 cols[8] = list.get(i).getDeliveryDate();
                 model.addRow(cols);
@@ -253,7 +248,7 @@ public class DeliveryView extends javax.swing.JFrame {
     public void displayOrderIdAtComboBox() {
         RequisitionDao dao = new RequisitionDaoImpl();
         List<Requisition> orders = dao.getRequisitions();
-        cmbOrderId.addItem("Select an Order ID");
+        cmbOrderId.addItem("Select an ID");
         for (Requisition requisition : orders) {
             cmbOrderId.addItem(String.valueOf(requisition.getId()));
         }
@@ -308,7 +303,7 @@ public class DeliveryView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cmbOrderId;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

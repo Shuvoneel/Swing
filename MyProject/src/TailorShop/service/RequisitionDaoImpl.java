@@ -51,7 +51,25 @@ public class RequisitionDaoImpl implements RequisitionDao {
 
     @Override
     public void update(Requisition r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "update requisition set quantity=?, unit_price=?, total_price=?, advance=?, due=?, order_date=?, delivery_date=?, client_id=?, cat_id=?, measurement_id=? where id=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, r.getQty());
+            ps.setDouble(2, r.getUnitPrice());
+            ps.setDouble(3, r.getTotalPrice());
+            ps.setDouble(4, r.getAdvance());
+            ps.setDouble(5, r.getDue());
+            ps.setDate(6, new java.sql.Date(r.getOrderDate().getTime()));
+            ps.setDate(7, new java.sql.Date(r.getDeliveryDate().getTime()));
+            ps.setInt(8, r.getClient().getId());
+            ps.setInt(9, r.getCategory().getId());
+            ps.setInt(10, r.getMeasurement().getId());
+            ps.setInt(11, r.getId());
+            ps.executeUpdate();
+            System.out.println("Successfully Updated !");
+        } catch (SQLException se) {
+            Logger.getLogger(RequisitionDaoImpl.class.getName()).log(Level.SEVERE, null, se);
+        }
     }
 
     @Override
@@ -120,6 +138,7 @@ public class RequisitionDaoImpl implements RequisitionDao {
         String sql = "select * from requisition where id=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Client client = new Client(rs.getInt(9));
