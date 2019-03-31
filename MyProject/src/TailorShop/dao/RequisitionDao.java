@@ -19,5 +19,7 @@ public interface RequisitionDao {
 
     List<Requisition> getRequisitions();
 
+    List<Requisition> getRequisitionsById(int id);
+
     public int getLastRow();
 }

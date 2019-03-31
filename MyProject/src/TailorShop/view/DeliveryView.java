@@ -3,16 +3,21 @@ package TailorShop.view;
 import TailorShop.dao.CategoryDao;
 import TailorShop.dao.ClientDao;
 import TailorShop.dao.RequisitionDao;
+import TailorShop.pojo.Category;
 import TailorShop.pojo.Client;
 import TailorShop.pojo.Requisition;
 import TailorShop.service.CategoryDaoImpl;
 import TailorShop.service.ClientDaoImpl;
+import TailorShop.service.DeliveryDaoImpl;
 import TailorShop.service.RequisitionDaoImpl;
+import java.sql.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class DeliveryView extends javax.swing.JFrame {
-    
+
     public DeliveryView() {
         initComponents();
         displayOrderIdAtComboBox();
@@ -154,7 +159,7 @@ public class DeliveryView extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -177,9 +182,8 @@ public class DeliveryView extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(14, 14, 14)))
+                        .addGap(87, 87, 87)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -213,21 +217,39 @@ public class DeliveryView extends javax.swing.JFrame {
         int id = Integer.parseInt(cmbOrderId.getItemAt(cmbOrderId.getSelectedIndex()));
         displayListIntoTable(id);
     }//GEN-LAST:event_cmbOrderIdItemStateChanged
-    
-    public void displayListIntoTable(int order_id) {
-        RequisitionDao dao = new RequisitionDaoImpl();
-        ClientDao clientDao = new ClientDaoImpl();
-        CategoryDao categoryDao = new CategoryDaoImpl();
-        List<Requisition> list = dao.getRequisitionById(order_id);
-        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-        Object[] cols = new Object[9];
-        
-        for (int i = 0; i < list.size(); i++) {
-            
-            model.addRow(cols);
+
+    public void displayListIntoTable(int id) {
+        try {
+            RequisitionDao dao = new RequisitionDaoImpl();
+            ClientDao clientDao = new ClientDaoImpl();
+            CategoryDao categoryDao = new CategoryDaoImpl();
+            List<Requisition> list = dao.getRequisitionsById(id);
+            DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+            Object[] cols = new Object[9];
+
+            for (int i = 0; i < list.size(); i++) {
+                cols[0] = list.get(i).getId();
+                Client client_id = clientDao.getClientById(list.get(i).getClient().getId());
+                cols[1] = client_id;
+                Requisition requisition_id = dao.getRequisitionById(list.get(i).getId());
+                cols[2] = requisition_id;
+                Requisition quantity = dao.getRequisitionById(list.get(i).getQty());
+                cols[3] = quantity;
+                Category category = categoryDao.getCategoryById(list.get(i).getCategory().getId());
+                cols[4] = category.getCatName();
+                Requisition total_price = dao.getRequisitionById((int) list.get(i).getTotalPrice());
+                cols[5] = total_price;
+                Requisition due = dao.getRequisitionById((int) list.get(i).getDue());
+                cols[6] = due;
+                cols[7] = list.get(i).getOrderDate();
+                cols[8] = list.get(i).getDeliveryDate();
+                model.addRow(cols);
+            }
+        } catch (NumberFormatException ne) {
+            Logger.getLogger(DeliveryDaoImpl.class.getName()).log(Level.SEVERE, null, ne);
         }
     }
-    
+
     public void displayOrderIdAtComboBox() {
         RequisitionDao dao = new RequisitionDaoImpl();
         List<Requisition> orders = dao.getRequisitions();
@@ -236,7 +258,7 @@ public class DeliveryView extends javax.swing.JFrame {
             cmbOrderId.addItem(String.valueOf(requisition.getId()));
         }
     }
-    
+
     public void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         model.setRowCount(0);
