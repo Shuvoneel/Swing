@@ -255,7 +255,7 @@ public class MeasurementView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Length", "Width", "Shoulder", "Waist", "Chest", "Category", "Client Name"
+                "ID", "Client Name", "Category", "Length", "Width", "Shoulder", "Waist", "Chest"
             }
         ));
         jScrollPane1.setViewportView(tblDisplay);
@@ -330,14 +330,14 @@ public class MeasurementView extends javax.swing.JFrame {
 
         for (int i = 0; i < list.size(); i++) {
             cols[0] = list.get(i).getId();
-            cols[1] = list.get(i).getLength();
-            cols[2] = list.get(i).getWidth();
-            cols[3] = list.get(i).getShoulder();
-            cols[4] = list.get(i).getWaist();
-            cols[5] = list.get(i).getChest();
-            cols[6] = list.get(i).getCategory().getCatName();
             Client client = clientDao.getClientById(list.get(i).getClient().getId());
-            cols[7] = client.getName();
+            cols[1] = client.getName();
+            cols[2] = list.get(i).getCategory().getCatName();
+            cols[3] = list.get(i).getLength();
+            cols[4] = list.get(i).getWidth();
+            cols[5] = list.get(i).getShoulder();
+            cols[6] = list.get(i).getWaist();
+            cols[7] = list.get(i).getChest();
             model.addRow(cols);
         }
     }

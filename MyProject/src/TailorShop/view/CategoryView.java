@@ -25,6 +25,7 @@ public class CategoryView extends javax.swing.JFrame {
     public CategoryView() {
         initComponents();
         CommonMenu.getCommonMenu(this);
+        displayCategoryListIntoTable();
     }
 
     /**
@@ -235,7 +236,7 @@ public class CategoryView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void displayClientListIntoTable() {
+public void displayCategoryListIntoTable() {
         CategoryDao dao = new CategoryDaoImpl();
         List<Category> list = dao.getCategorys();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
@@ -251,7 +252,7 @@ public void displayClientListIntoTable() {
         Category category = new Category(txtCatName.getText());
         CategoryDao obj = new CategoryDaoImpl();
         obj.save(category);
-        displayClientListIntoTable();
+        displayCategoryListIntoTable();
         JOptionPane.showMessageDialog(null, "Success !");
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -259,7 +260,7 @@ public void displayClientListIntoTable() {
         Category category = new Category(Integer.parseInt(txtId.getText()), txtCatName.getText());
         CategoryDao obj = new CategoryDaoImpl();
         obj.update(category);
-        displayClientListIntoTable();
+        displayCategoryListIntoTable();
         JOptionPane.showMessageDialog(null, "Success !");
     }//GEN-LAST:event_btnUpdateActionPerformed
 

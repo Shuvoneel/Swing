@@ -1,10 +1,14 @@
 package TailorShop.test;
 
-import TailorShop.tables.CreateTables;
+import TailorShop.dao.MeasurementDao;
+import TailorShop.pojo.Category;
+import TailorShop.pojo.Measurement;
+import TailorShop.service.MeasurementDaoImpl;
 
 public class TestTable {
 
     public static void main(String[] args) {
-        CreateTables.summaryTable();
+        MeasurementDao measurement = new MeasurementDaoImpl();
+        System.out.println(measurement.getCatNameByMsId(2));
     }
 }

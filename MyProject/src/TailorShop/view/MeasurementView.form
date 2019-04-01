@@ -404,13 +404,13 @@
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="8" rowCount="0">
                     <Column editable="true" title="ID" type="java.lang.Object"/>
+                    <Column editable="true" title="Client Name" type="java.lang.Object"/>
+                    <Column editable="true" title="Category" type="java.lang.Object"/>
                     <Column editable="true" title="Length" type="java.lang.Object"/>
                     <Column editable="true" title="Width" type="java.lang.Object"/>
                     <Column editable="true" title="Shoulder" type="java.lang.Object"/>
                     <Column editable="true" title="Waist" type="java.lang.Object"/>
                     <Column editable="true" title="Chest" type="java.lang.Object"/>
-                    <Column editable="true" title="Category" type="java.lang.Object"/>
-                    <Column editable="true" title="Client Name" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

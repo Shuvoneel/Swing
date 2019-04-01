@@ -91,7 +91,27 @@ public class MeasurementDaoImpl implements MeasurementDao {
 
     @Override
     public Measurement getCatNameByMsId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Measurement measurement = new Measurement();
+        String sql = "select * from measurement where id=?";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                measurement.setId(rs.getInt(1));
+                measurement.setLength(rs.getDouble(2));
+                measurement.setWidth(rs.getDouble(3));
+                measurement.setShoulder(rs.getDouble(4));
+                measurement.setWaist(rs.getDouble(5));
+                measurement.setChest(rs.getDouble(6));
+                measurement.setCategory(new Category(rs.getString(7)));
+                measurement.setClient(new Client(rs.getInt(8)));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeasurementDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return measurement;
     }
 
 }
