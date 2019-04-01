@@ -10,7 +10,7 @@ import TailorShop.service.CategoryDaoImpl;
 import TailorShop.service.ClientDaoImpl;
 import TailorShop.service.DeliveryDaoImpl;
 import TailorShop.service.RequisitionDaoImpl;
-import java.sql.Date;
+import TailorShop.util.CommonMenu;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +22,7 @@ public class DeliveryView extends javax.swing.JFrame {
     public DeliveryView() {
         initComponents();
         displayOrderIdAtComboBox();
+        CommonMenu.getCommonMenu(this);
     }
 
     /**

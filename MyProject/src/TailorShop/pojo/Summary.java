@@ -6,6 +6,7 @@ public class Summary {
 
     private int id;
     private Date date;
+    private int order_id;
     private int totalOrder;
 
     public Summary() {
@@ -19,10 +20,25 @@ public class Summary {
         this.date = date;
     }
 
-    public Summary(int id, Date date, int totalOrder) {
+    public Summary(Date date, int order_id, int totalOrder) {
+        this.date = date;
+        this.order_id = order_id;
+        this.totalOrder = totalOrder;
+    }
+
+    public Summary(int id, Date date, int order_id, int totalOrder) {
         this.id = id;
         this.date = date;
+        this.order_id = order_id;
         this.totalOrder = totalOrder;
+    }
+
+    public int getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 
     public int getId() {

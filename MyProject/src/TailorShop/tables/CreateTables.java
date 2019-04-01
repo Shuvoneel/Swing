@@ -79,7 +79,7 @@ public class CreateTables {
     }
 
     public static void summaryTable() {
-        String sql = "create table IF NOT EXISTS summary(id int(5)  auto_increment primary key, date date, total_order int(5))";
+        String sql = "create table IF NOT EXISTS summary(id int(5)  auto_increment primary key, date date, order_id int(5), total_order int(5), FOREIGN KEY (order_id) REFERENCES requisition(id))";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.execute();

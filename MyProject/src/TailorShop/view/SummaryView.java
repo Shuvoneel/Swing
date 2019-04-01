@@ -1,20 +1,26 @@
 package TailorShop.view;
 
 import TailorShop.dao.RequisitionDao;
+import TailorShop.dao.SummaryDao;
 import TailorShop.pojo.Requisition;
+import TailorShop.pojo.Summary;
 import TailorShop.service.RequisitionDaoImpl;
 import TailorShop.service.SummaryDaoImpl;
+import TailorShop.util.CommonMenu;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class SummaryView extends javax.swing.JFrame {
 
     public SummaryView() {
         initComponents();
-        displayListIntoTable();
         displayDateAtComboBox();
+        CommonMenu.getCommonMenu(this);
     }
 
     /**
@@ -87,15 +93,21 @@ public class SummaryView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Date", "Total Order"
+                "Date", "Total Order"
             }
         ));
         jScrollPane1.setViewportView(tblDisplay);
         if (tblDisplay.getColumnModel().getColumnCount() > 0) {
-            tblDisplay.getColumnModel().getColumn(1).setResizable(false);
+            tblDisplay.getColumnModel().getColumn(0).setResizable(false);
         }
 
         jLabel3.setText("Search by Date:");
+
+        cmbDate.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDateItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -150,23 +162,48 @@ public class SummaryView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmbDateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDateItemStateChanged
+        if (cmbDate.getItemAt(cmbDate.getSelectedIndex()) == "Select your Date") {
+            displayListIntoTable();
+        } else {
+            clearTable();
+            String dateString = cmbDate.getItemAt(cmbDate.getSelectedIndex());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date = format.parse(dateString);
+                SummaryDao summaryDao = new SummaryDaoImpl();
+                Summary summary = summaryDao.getSummaryByDate(date);
+                DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+                Object[] cols = new Object[2];
+
+                cols[0] = summary.getDate();
+                cols[1] = summary.getTotalOrder();
+                model.addRow(cols);
+            } catch (ParseException ex) {
+                Logger.getLogger(SummaryView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_cmbDateItemStateChanged
+
     public void displayListIntoTable() {
         clearTable();
-        SummaryDaoImpl daoImpl = new SummaryDaoImpl();
-        Requisition dao = new Requisition();
+        SummaryDao summaryDao = new SummaryDaoImpl();
+        RequisitionDao dao = new RequisitionDaoImpl();
+        List<Summary> list = summaryDao.getSummarys();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-        Object[] cols = new Object[3];
-        cols[0] = dao.getId();
-        cols[1] = cmbDate.getItemAt(cmbDate.getSelectedIndex());
-        cols[2] = daoImpl.getTotalOrder(new Date());
-        model.addRow(cols);
+        Object[] cols = new Object[4];
+        for (int i = 0; i < list.size(); i++) {
+            cols[0] = list.get(i).getDate();
+            cols[1] = list.get(i).getTotalOrder();
+            model.addRow(cols);
+        }
     }
 
     public void displayDateAtComboBox() {
         RequisitionDao dao = new RequisitionDaoImpl();
         List<Requisition> requisitions = dao.getRequisitions();
-        cmbDate.addItem("Select a Date to get the Data");
         SimpleDateFormat orderDate = new SimpleDateFormat("yyyy-MM-dd");
+        cmbDate.addItem("Select your Date");
         for (Requisition requisition : requisitions) {
             cmbDate.addItem(orderDate.format(requisition.getOrderDate()));
         }

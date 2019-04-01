@@ -31,7 +31,7 @@ public class DeliveryDaoImpl implements DeliveryDao {
     }
 
     @Override
-    public List<Delivery> getList() {
+    public List<Delivery> getDeliverys() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

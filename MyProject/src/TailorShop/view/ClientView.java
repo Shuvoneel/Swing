@@ -8,6 +8,7 @@ package TailorShop.view;
 import TailorShop.dao.ClientDao;
 import TailorShop.pojo.Client;
 import TailorShop.service.ClientDaoImpl;
+import TailorShop.util.CommonMenu;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +25,7 @@ public class ClientView extends javax.swing.JFrame {
     public ClientView() {
         initComponents();
         displayClientListIntoTable();
+        CommonMenu.getCommonMenu(this);
     }
 
     /**
@@ -284,7 +286,7 @@ public void displayClientListIntoTable() {
         List<Client> list = dao.getClients();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         Object[] cols = new Object[5];
-        
+
         for (int i = 0; i < list.size(); i++) {
             cols[0] = list.get(i).getId();
             cols[1] = list.get(i).getName();

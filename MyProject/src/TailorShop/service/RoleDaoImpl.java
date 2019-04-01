@@ -38,7 +38,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public List<Role> getList() {
+    public List<Role> getRoles() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

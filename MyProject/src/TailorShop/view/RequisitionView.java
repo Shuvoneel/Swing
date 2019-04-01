@@ -4,14 +4,18 @@ import TailorShop.dao.CategoryDao;
 import TailorShop.dao.ClientDao;
 import TailorShop.dao.MeasurementDao;
 import TailorShop.dao.RequisitionDao;
+import TailorShop.dao.SummaryDao;
 import TailorShop.pojo.Category;
 import TailorShop.pojo.Client;
 import TailorShop.pojo.Measurement;
 import TailorShop.pojo.Requisition;
+import TailorShop.pojo.Summary;
 import TailorShop.service.CategoryDaoImpl;
 import TailorShop.service.ClientDaoImpl;
 import TailorShop.service.MeasurementDaoImpl;
 import TailorShop.service.RequisitionDaoImpl;
+import TailorShop.service.SummaryDaoImpl;
+import TailorShop.util.CommonMenu;
 import TailorShop.util.UtilDate;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -35,6 +39,7 @@ public class RequisitionView extends javax.swing.JFrame {
         displayClientAtComboBox();
         displayCategoryAtComboBox();
         displayRequisitionListIntoTable();
+        CommonMenu.getCommonMenu(this);
     }
 
     /**
@@ -505,6 +510,8 @@ public class RequisitionView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // Requisition Table
+
         RequisitionDao dao = new RequisitionDaoImpl();
         ClientDao clientDao = new ClientDaoImpl();
         String clientName = cmbClient.getItemAt(cmbClient.getSelectedIndex());
@@ -514,7 +521,6 @@ public class RequisitionView extends javax.swing.JFrame {
         CategoryDao categoryDao = new CategoryDaoImpl();
         String catName = cmbCategory.getItemAt(cmbCategory.getSelectedIndex());
         Category category = categoryDao.getCategoryByCatName(catName);
-        //int qty, double unitPrice, double totalPrice, double advance, double due, Date orderDate, Date deliveryDate, Client client, Measurement measurement, Category category
 
         Date orderDate = new Date();
         Date deliveryDate = UtilDate.getDeliveryDate(new Date(), 10);
@@ -543,19 +549,11 @@ public class RequisitionView extends javax.swing.JFrame {
         dspDue.setText(txtDue.getText());
 
         // Summary Table
-//        SummaryDao summaryDao = new SummaryDaoImpl();
-//
-//        Summary summary = summaryDao.getSummaryByDate(requisition.getOrderDate());
-//
-//        if (summary.getDate() != null) {
-//
-//            int totalOrder = summary.getTotalOrder();
-//
-//            Summary summaryUp = new Summary(summary.getId(), summary.getDate(), totalOrder);
-//            summaryDao.update(summaryUp);
-//            JOptionPane.showMessageDialog(null, "Order success");
-//
-//        }
+        SummaryDao summaryDao = new SummaryDaoImpl();
+
+        Summary summary = new Summary(new Date(), dao.getLastRow(), Integer.parseInt(txtQty.getText()));
+        summaryDao.save(summary);
+        JOptionPane.showMessageDialog(null, "Successfully saved in Summary table");
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed

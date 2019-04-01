@@ -25,11 +25,12 @@ public class SummaryDaoImpl implements SummaryDao {
 
     @Override
     public void save(Summary s) {
-        String sql = "insert into summary(date, total_order) values(?,?)";
+        String sql = "insert into summary(date, order_id, total_order) values(?,?,?)";
         try {
             PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setDate(1, (java.sql.Date) s.getDate());
-            pstm.setInt(2, s.getTotalOrder());
+            pstm.setDate(1, new java.sql.Date(s.getDate().getTime()));
+            pstm.setInt(2, s.getOrder_id());
+            pstm.setInt(3, s.getTotalOrder());
             pstm.executeUpdate();
             System.out.println("Insert success !");
         } catch (SQLException ex) {
@@ -61,7 +62,7 @@ public class SummaryDaoImpl implements SummaryDao {
             pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                summary = new Summary(rs.getInt(1), rs.getDate(2), rs.getInt(3));
+                summary = new Summary(rs.getInt(1), rs.getDate(2), rs.getInt(3), rs.getInt(4));
             }
 
         } catch (SQLException ex) {
@@ -70,26 +71,22 @@ public class SummaryDaoImpl implements SummaryDao {
         return summary;
     }
 
-//    @Override
-//    public Summary getSummaryByDate(Date date) {
-//        Summary summary = null;
-//        String sql = "select * from summary where date=?";
-//        try {
-//            PreparedStatement pstm = conn.prepareStatement(sql);
-//            pstm.setDate(1, (java.sql.Date) date);
-//            ResultSet rs = pstm.executeQuery();
-//            while (rs.next()) {
-//                summary = new Summary(rs.getInt(1), rs.getDate(2), rs.getInt(3));
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(SummaryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return summary;
-//    }
-    public static void main(String[] args) {
-        SummaryDaoImpl dao = new SummaryDaoImpl();
-        System.out.println(dao.getTotalOrder(new Date()));
+    @Override
+    public Summary getSummaryByDate(Date date) {
+        Summary summary = null;
+        String sql = "select id, date, order_id, sum(total_order) from summary where date=?";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setDate(1, new java.sql.Date(date.getTime()));
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                summary = new Summary(rs.getInt(1), rs.getDate(2), rs.getInt(3), rs.getInt(4));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SummaryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return summary;
     }
 
     public int getTotalOrder(java.util.Date date) {
@@ -110,14 +107,14 @@ public class SummaryDaoImpl implements SummaryDao {
     }
 
     @Override
-    public List<Summary> getList() {
+    public List<Summary> getSummarys() {
         List<Summary> list = new ArrayList<>();
         String sql = "select * from summary";
         try {
             PreparedStatement pstm = conn.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                Summary summary = new Summary(rs.getInt(1), rs.getDate(2), rs.getInt(3));
+                Summary summary = new Summary(rs.getInt(1), rs.getDate(2), rs.getInt(3), rs.getInt(4));
                 list.add(summary);
             }
 

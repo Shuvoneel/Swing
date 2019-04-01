@@ -13,5 +13,5 @@ public interface DeliveryDao {
 
     void delete(int id);
 
-    List<Delivery> getList();
+    List<Delivery> getDeliverys();
 }

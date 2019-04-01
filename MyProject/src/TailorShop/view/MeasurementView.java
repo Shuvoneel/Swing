@@ -9,6 +9,7 @@ import TailorShop.pojo.Measurement;
 import TailorShop.service.CategoryDaoImpl;
 import TailorShop.service.ClientDaoImpl;
 import TailorShop.service.MeasurementDaoImpl;
+import TailorShop.util.CommonMenu;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +28,7 @@ public class MeasurementView extends javax.swing.JFrame {
         displayMeasurementListIntoTable();
         displayClientAtComboBox();
         displayCategoryAtComboBox();
-
+        CommonMenu.getCommonMenu(this);
     }
 
     /**

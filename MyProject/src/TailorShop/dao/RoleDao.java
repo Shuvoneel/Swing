@@ -17,5 +17,5 @@ public interface RoleDao {
 
     void delete(int id);
 
-    List<Role> getList();
+    List<Role> getRoles();
 }

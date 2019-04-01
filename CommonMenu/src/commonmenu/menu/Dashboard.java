@@ -13,12 +13,16 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblDashboard = new javax.swing.JLabel();
+        txtField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Dashboard");
+        lblDashboard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDashboard.setText("Dashboard");
+
+        txtField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtField.setText("Shuvo Tailors and Fabrics");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -26,15 +30,21 @@ public class Dashboard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
-                .addComponent(jLabel1)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addComponent(lblDashboard)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtField, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
-                .addComponent(jLabel1)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addComponent(lblDashboard)
+                .addGap(18, 18, 18)
+                .addComponent(txtField, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -74,6 +84,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblDashboard;
+    private javax.swing.JTextField txtField;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,6 +8,7 @@ package TailorShop.view;
 import TailorShop.dao.CategoryDao;
 import TailorShop.pojo.Category;
 import TailorShop.service.CategoryDaoImpl;
+import TailorShop.util.CommonMenu;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +24,7 @@ public class CategoryView extends javax.swing.JFrame {
      */
     public CategoryView() {
         initComponents();
+        CommonMenu.getCommonMenu(this);
     }
 
     /**

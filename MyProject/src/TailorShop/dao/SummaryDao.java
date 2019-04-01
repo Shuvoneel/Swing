@@ -14,5 +14,7 @@ public interface SummaryDao {
 
     Summary getSummaryById(int id);
 
-    List<Summary> getList();
+    Summary getSummaryByDate(Date date);
+
+    List<Summary> getSummarys();
 }
