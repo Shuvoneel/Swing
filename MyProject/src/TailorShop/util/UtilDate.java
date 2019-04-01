@@ -10,7 +10,7 @@ public class UtilDate {
         c.setTime(currentDate);
         c.add(Calendar.DATE, day);
         return c.getTime();
-
     }
     
+     
 }

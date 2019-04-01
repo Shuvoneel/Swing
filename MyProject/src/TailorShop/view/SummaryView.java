@@ -1,7 +1,12 @@
 package TailorShop.view;
 
+import TailorShop.dao.RequisitionDao;
+import TailorShop.pojo.Requisition;
+import TailorShop.service.RequisitionDaoImpl;
 import TailorShop.service.SummaryDaoImpl;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class SummaryView extends javax.swing.JFrame {
@@ -9,6 +14,7 @@ public class SummaryView extends javax.swing.JFrame {
     public SummaryView() {
         initComponents();
         displayListIntoTable();
+        displayDateAtComboBox();
     }
 
     /**
@@ -147,13 +153,23 @@ public class SummaryView extends javax.swing.JFrame {
     public void displayListIntoTable() {
         clearTable();
         SummaryDaoImpl daoImpl = new SummaryDaoImpl();
-        
-         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-         Object[] cols= new Object[3];
-         cols[0] = 1;
-         cols[1]= new Date();
-         cols[2] = daoImpl.getTotalOrder(new Date());
-         model.addRow(cols);
+        Requisition dao = new Requisition();
+        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+        Object[] cols = new Object[3];
+        cols[0] = dao.getId();
+        cols[1] = cmbDate.getItemAt(cmbDate.getSelectedIndex());
+        cols[2] = daoImpl.getTotalOrder(new Date());
+        model.addRow(cols);
+    }
+
+    public void displayDateAtComboBox() {
+        RequisitionDao dao = new RequisitionDaoImpl();
+        List<Requisition> requisitions = dao.getRequisitions();
+        cmbDate.addItem("Select a Date to get the Data");
+        SimpleDateFormat orderDate = new SimpleDateFormat("yyyy-MM-dd");
+        for (Requisition requisition : requisitions) {
+            cmbDate.addItem(orderDate.format(requisition.getOrderDate()));
+        }
     }
 
     public void clearTable() {
