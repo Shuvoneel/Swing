@@ -23,6 +23,7 @@ public class DeliveryView extends javax.swing.JFrame {
         initComponents();
         displayOrderIdAtComboBox();
         CommonMenu.getCommonMenu(this);
+        displayListIntoTable();
     }
 
     /**
@@ -144,7 +145,7 @@ public class DeliveryView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Delivery ID", "Client Name", "Order ID", "Quantity", "Category", "Total Price", "Due", "Order Date", "Delivery Date"
+                "Delivery ID", "Client Name", "Category", "Order ID", "Quantity", "Total Price", "Due", "Order Date", "Delivery Date"
             }
         ));
         jScrollPane1.setViewportView(tblDisplay);
@@ -228,13 +229,10 @@ public class DeliveryView extends javax.swing.JFrame {
                 cols[0] = list.get(i).getId();
                 Client client_id = clientDao.getClientById(list.get(i).getClient().getId());
                 cols[1] = client_id.getName();
-
-                cols[2] = list.get(i).getId();
-
-                cols[3] = list.get(i).getQty();
                 Category category = categoryDao.getCategoryById(list.get(i).getCategory().getId());
-                cols[4] = category.getCatName();
-
+                cols[2] = category.getCatName();
+                cols[3] = list.get(i).getId();
+                cols[4] = list.get(i).getQty();
                 cols[5] = list.get(i).getTotalPrice();
                 cols[6] = list.get(i).getDue();
                 cols[7] = list.get(i).getOrderDate();
@@ -244,6 +242,10 @@ public class DeliveryView extends javax.swing.JFrame {
         } catch (NumberFormatException ne) {
             Logger.getLogger(DeliveryDaoImpl.class.getName()).log(Level.SEVERE, null, ne);
         }
+    }
+
+    public void displayListIntoTable() {
+
     }
 
     public void displayOrderIdAtComboBox() {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package TailorShop.view;
 
 import TailorShop.dao.ClientDao;
@@ -13,15 +9,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author User
- */
 public class ClientView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ClientView
-     */
     public ClientView() {
         initComponents();
         displayClientListIntoTable();
@@ -64,7 +53,7 @@ public class ClientView extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Client Details");
+        jLabel1.setText("Our Honorable Clienta are....");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

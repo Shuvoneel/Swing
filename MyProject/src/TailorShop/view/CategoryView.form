@@ -86,7 +86,7 @@
               <Font name="Times New Roman" size="18" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Category Details"/>
+            <Property name="text" type="java.lang.String" value="We Take Orders For......"/>
           </Properties>
         </Component>
       </SubComponents>

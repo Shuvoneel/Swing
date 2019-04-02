@@ -138,19 +138,29 @@ public class MeasurementView extends javax.swing.JFrame {
 
         jLabel8.setText("Length:");
 
+        txtLength.setText("0.0");
+
         jLabel3.setText("Category");
 
         jLabel9.setText("Width:");
 
+        txtWidth.setText("0.0");
+
         jLabel10.setText("Shoulder:");
 
+        txtShoulder.setText("0.0");
+
         jLabel11.setText("Waist:");
+
+        txtWaist.setText("0.0");
 
         jLabel13.setText("Chest:");
 
         jLabel5.setText("Measurement ID:");
 
         txtId.setText("0");
+
+        txtChest.setText("0.0");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

@@ -9,7 +9,6 @@ import TailorShop.pojo.Measurement;
 import TailorShop.pojo.Requisition;
 import TailorShop.tables.CreateTables;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -120,8 +119,9 @@ public class RequisitionDaoImpl implements RequisitionDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Client client = new Client(rs.getInt(9));
-                Measurement measurement = new Measurement(rs.getInt(10));
-                Category category = new Category(rs.getInt(11));
+
+                Category category = new Category(rs.getInt(10));
+                Measurement measurement = new Measurement(rs.getInt(11));
                 requisition = new Requisition(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4), rs.getDouble(5), rs.getDouble(6), rs.getDate(7), rs.getDate(8), client, measurement, category);
                 requisitions.add(requisition);
             }
@@ -142,8 +142,8 @@ public class RequisitionDaoImpl implements RequisitionDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Client client = new Client(rs.getInt(9));
-                Measurement measurement = new Measurement(rs.getInt(10));
-                Category category = new Category(rs.getInt(11));
+                Category category = new Category(rs.getInt(10));
+                Measurement measurement = new Measurement(rs.getInt(11));
                 Requisition requisition = new Requisition(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4), rs.getDouble(5), rs.getDouble(6), rs.getDate(7), rs.getDate(8), client, measurement, category);
                 requisitions.add(requisition);
             }

@@ -193,6 +193,8 @@ public class RequisitionView extends javax.swing.JFrame {
 
         jLabel14.setText("Measurement ID:");
 
+        txtMsId.setText("0");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -303,7 +305,7 @@ public class RequisitionView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Order ID:", "Quantity", "Unit Price", "Total Price", "Advance", "Due", "Order Date", "Delivery Date", "Client Name", "Measurement", "Category"
+                "Order ID:", "Client Name", "Category", "Measurement", "Quantity", "Unit Price", "Total Price", "Advance", "Due", "Order Date", "Delivery Date"
             }
         ));
         jScrollPane1.setViewportView(tblDisplay);
@@ -579,18 +581,19 @@ public class RequisitionView extends javax.swing.JFrame {
 
         for (int i = 0; i < list.size(); i++) {
             cols[0] = list.get(i).getId();
-            cols[1] = list.get(i).getQty();
-            cols[2] = list.get(i).getUnitPrice();
-            cols[3] = list.get(i).getTotalPrice();
-            cols[4] = list.get(i).getAdvance();
-            cols[5] = list.get(i).getDue();
-            cols[6] = new java.sql.Date(list.get(i).getOrderDate().getTime());
-            cols[7] = new java.sql.Date(list.get(i).getDeliveryDate().getTime());
             Client client = clientDao.getClientById(list.get(i).getClient().getId());
-            cols[8] = client.getName();
-            cols[9] = list.get(i).getMeasurement().getId();
+            cols[1] = client.getName();
             Category category = categoryDao.getCategoryById(list.get(i).getCategory().getId());
-            cols[10] = category.getCatName();
+            cols[2] = category.getCatName();
+            cols[3] = list.get(i).getMeasurement().getId();
+            cols[4] = list.get(i).getQty();
+            cols[5] = list.get(i).getUnitPrice();
+            cols[6] = list.get(i).getTotalPrice();
+            cols[7] = list.get(i).getAdvance();
+            cols[8] = list.get(i).getDue();
+            cols[9] = new java.sql.Date(list.get(i).getOrderDate().getTime());
+            cols[10] = new java.sql.Date(list.get(i).getDeliveryDate().getTime());
+
             model.addRow(cols);
         }
     }

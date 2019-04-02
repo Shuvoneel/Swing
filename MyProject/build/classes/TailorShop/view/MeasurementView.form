@@ -295,6 +295,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLength">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0.0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -317,6 +320,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtWidth">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0.0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -324,6 +330,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtShoulder">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0.0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
@@ -331,6 +340,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtWaist">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0.0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -348,6 +360,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtChest">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="0.0"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbClient">
           <Properties>

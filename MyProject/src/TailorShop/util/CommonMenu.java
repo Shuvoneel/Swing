@@ -1,6 +1,7 @@
 package TailorShop.util;
 
 import TailorShop.view.CategoryView;
+import TailorShop.view.ClientDetailsView;
 import TailorShop.view.ClientView;
 import TailorShop.view.DeliveryView;
 import TailorShop.view.HelpView;
@@ -45,7 +46,7 @@ public class CommonMenu {
             }
         });
 
-        JMenuItem itemClient = new JMenuItem("Client");
+        JMenuItem itemClient = new JMenuItem("Honorable Clients");
         itemClient.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
         itemClient.addActionListener(new ActionListener() {
             @Override
@@ -55,7 +56,7 @@ public class CommonMenu {
             }
         });
 
-        JMenuItem itemMeasurement = new JMenuItem("Measurement");
+        JMenuItem itemMeasurement = new JMenuItem("Measurements");
         itemMeasurement.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
         itemMeasurement.addActionListener(new ActionListener() {
             @Override
@@ -65,7 +66,7 @@ public class CommonMenu {
             }
         });
 
-        JMenuItem itemOrder = new JMenuItem("Order");
+        JMenuItem itemOrder = new JMenuItem("Orders");
         itemOrder.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
         itemOrder.addActionListener(new ActionListener() {
             @Override
@@ -75,7 +76,7 @@ public class CommonMenu {
             }
         });
 
-        JMenuItem itemDelivery = new JMenuItem("Delivery");
+        JMenuItem itemDelivery = new JMenuItem("Deliveries");
         itemDelivery.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
         itemDelivery.addActionListener(new ActionListener() {
             @Override
@@ -95,6 +96,16 @@ public class CommonMenu {
             }
         });
 
+        JMenuItem itemSpecificClients = new JMenuItem("Clients Order Details");
+        itemSpecificClients.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemSpecificClients.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.setVisible(false);
+                new ClientDetailsView().setVisible(true);
+            }
+        });
+
         file.add(itemHome);
         file.add(itemCategory);
         file.add(itemClient);
@@ -102,6 +113,7 @@ public class CommonMenu {
         file.add(itemOrder);
         file.add(itemDelivery);
         file.add(itemSummary);
+        file.add(itemSpecificClients);
         menuBar.add(file);
 
         // Add Help menu and Menu item to Help

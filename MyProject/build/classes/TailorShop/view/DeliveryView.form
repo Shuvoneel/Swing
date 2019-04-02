@@ -244,9 +244,9 @@
                   <Table columnCount="9" rowCount="0">
                     <Column editable="true" title="Delivery ID" type="java.lang.Object"/>
                     <Column editable="true" title="Client Name" type="java.lang.Object"/>
+                    <Column editable="true" title="Category" type="java.lang.Object"/>
                     <Column editable="true" title="Order ID" type="java.lang.Object"/>
                     <Column editable="true" title="Quantity" type="java.lang.Object"/>
-                    <Column editable="true" title="Category" type="java.lang.Object"/>
                     <Column editable="true" title="Total Price" type="java.lang.Object"/>
                     <Column editable="true" title="Due" type="java.lang.Object"/>
                     <Column editable="true" title="Order Date" type="java.lang.Object"/>
