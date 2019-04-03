@@ -1,4 +1,3 @@
-
 package TailorShop.view;
 
 import TailorShop.dao.ClientDao;
@@ -53,7 +52,7 @@ public class ClientView extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Our Honorable Clienta are....");
+        jLabel1.setText("Our Honorable Clients are....");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -95,6 +94,7 @@ public class ClientView extends javax.swing.JFrame {
 
         jLabel4.setText("Customer ID:");
 
+        txtId.setEditable(false);
         txtId.setText("0");
 
         txtMobile.setText("0");
@@ -105,7 +105,7 @@ public class ClientView extends javax.swing.JFrame {
 
         jLabel7.setText("Address:");
 
-        btnReg.setText("Register");
+        btnReg.setText("Create");
         btnReg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegActionPerformed(evt);
@@ -290,7 +290,7 @@ public void displayClientListIntoTable() {
         ClientDao obj = new ClientDaoImpl();
         obj.save(client);
         displayClientListIntoTable();
-        JOptionPane.showMessageDialog(null, "Success !");
+        JOptionPane.showMessageDialog(null, "Clients Created !");
     }//GEN-LAST:event_btnRegActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -298,7 +298,7 @@ public void displayClientListIntoTable() {
         ClientDao obj = new ClientDaoImpl();
         obj.update(client);
         displayClientListIntoTable();
-        JOptionPane.showMessageDialog(null, "Success !");
+        JOptionPane.showMessageDialog(null, "Update Successfull !");
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed

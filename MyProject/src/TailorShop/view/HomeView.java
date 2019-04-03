@@ -68,7 +68,7 @@ public class HomeView extends javax.swing.JFrame {
         jTextField5.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
         jTextField5.setForeground(new java.awt.Color(204, 255, 255));
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.setText("Copyright@Shuvo/1246913/IDB-BISEW/R-39");
+        jTextField5.setText("Copyright@Shuvo/01717677451");
         jTextField5.setBorder(null);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

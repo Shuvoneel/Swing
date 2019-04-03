@@ -158,6 +158,7 @@ public class MeasurementView extends javax.swing.JFrame {
 
         jLabel5.setText("Measurement ID:");
 
+        txtId.setEditable(false);
         txtId.setText("0");
 
         txtChest.setText("0.0");
@@ -380,7 +381,7 @@ public class MeasurementView extends javax.swing.JFrame {
         //Measurement(double length, double width, double shoulder, double waist, double chest, Category category, Client client
         Measurement measurement = new Measurement(Double.parseDouble(txtLength.getText()), Double.parseDouble(txtWidth.getText()), Double.parseDouble(txtShoulder.getText()), Double.parseDouble(txtWaist.getText()), Double.parseDouble(txtChest.getText()), category, client);
         dao.save(measurement);
-        JOptionPane.showMessageDialog(null, "Success !");
+        JOptionPane.showMessageDialog(null, "Measurement Taken !");
         displayMeasurementListIntoTable();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -392,7 +393,7 @@ public class MeasurementView extends javax.swing.JFrame {
         Category category = new Category(cmbCategory.getItemAt(cmbCategory.getSelectedIndex()));
         Measurement measurement = new Measurement(Integer.parseInt(txtId.getText()), Double.parseDouble(txtLength.getText()), Double.parseDouble(txtWidth.getText()), Double.parseDouble(txtShoulder.getText()), Double.parseDouble(txtWaist.getText()), Double.parseDouble(txtChest.getText()), category);
         dao.update(measurement);
-        JOptionPane.showMessageDialog(null, "Update Success !");
+        JOptionPane.showMessageDialog(null, "Update Successfull !");
         displayMeasurementListIntoTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
 

@@ -23,7 +23,7 @@ public class DeliveryView extends javax.swing.JFrame {
         initComponents();
         displayOrderIdAtComboBox();
         CommonMenu.getCommonMenu(this);
-        displayListIntoTable();
+        displayDeliveryListIntoTable();
     }
 
     /**
@@ -92,6 +92,7 @@ public class DeliveryView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnSearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +100,7 @@ public class DeliveryView extends javax.swing.JFrame {
             }
         });
 
+        btnClear.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +108,7 @@ public class DeliveryView extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Search by Order ID:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -145,7 +148,7 @@ public class DeliveryView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Delivery ID", "Client Name", "Category", "Order ID", "Quantity", "Total Price", "Due", "Order Date", "Delivery Date"
+                "Order ID", "Client Name", "Category", "Quantity", "Total Price", "Due", "Order Date", "Delivery Date"
             }
         ));
         jScrollPane1.setViewportView(tblDisplay);
@@ -208,7 +211,7 @@ public class DeliveryView extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String ids = cmbOrderId.getItemAt(cmbOrderId.getSelectedIndex()).trim();
         if (ids == "Select an ID") {
-            JOptionPane.showMessageDialog(null, "Select an ID to get the data");
+            JOptionPane.showMessageDialog(null, "Select an ID to get delivery details");
         } else {
             int id = Integer.parseInt(cmbOrderId.getItemAt(cmbOrderId.getSelectedIndex()).trim());
             displayListIntoTable(id);
@@ -223,7 +226,7 @@ public class DeliveryView extends javax.swing.JFrame {
             CategoryDao categoryDao = new CategoryDaoImpl();
             List<Requisition> list = dao.getRequisitionsById(id);
             DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
-            Object[] cols = new Object[9];
+            Object[] cols = new Object[8];
 
             for (int i = 0; i < list.size(); i++) {
                 cols[0] = list.get(i).getId();
@@ -231,12 +234,11 @@ public class DeliveryView extends javax.swing.JFrame {
                 cols[1] = client_id.getName();
                 Category category = categoryDao.getCategoryById(list.get(i).getCategory().getId());
                 cols[2] = category.getCatName();
-                cols[3] = list.get(i).getId();
-                cols[4] = list.get(i).getQty();
-                cols[5] = list.get(i).getTotalPrice();
-                cols[6] = list.get(i).getDue();
-                cols[7] = list.get(i).getOrderDate();
-                cols[8] = list.get(i).getDeliveryDate();
+                cols[3] = list.get(i).getQty();
+                cols[4] = list.get(i).getTotalPrice();
+                cols[5] = list.get(i).getDue();
+                cols[6] = list.get(i).getOrderDate();
+                cols[7] = list.get(i).getDeliveryDate();
                 model.addRow(cols);
             }
         } catch (NumberFormatException ne) {
@@ -244,8 +246,29 @@ public class DeliveryView extends javax.swing.JFrame {
         }
     }
 
-    public void displayListIntoTable() {
+    public void displayDeliveryListIntoTable() {
+        clearTable();
+        RequisitionDao dao = new RequisitionDaoImpl();
+        ClientDao clientDao = new ClientDaoImpl();
+        CategoryDao categoryDao = new CategoryDaoImpl();
+        List<Requisition> list = dao.getRequisitions();
+        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+        Object[] cols = new Object[11];
 
+        for (int i = 0; i < list.size(); i++) {
+            cols[0] = list.get(i).getId();
+            Client client = clientDao.getClientById(list.get(i).getClient().getId());
+            cols[1] = client.getName();
+            Category category = categoryDao.getCategoryById(list.get(i).getCategory().getId());
+            cols[2] = category.getCatName();
+            cols[3] = list.get(i).getQty();
+            cols[4] = list.get(i).getTotalPrice();
+            cols[5] = list.get(i).getDue();
+            cols[6] = new java.sql.Date(list.get(i).getOrderDate().getTime());
+            cols[7] = new java.sql.Date(list.get(i).getDeliveryDate().getTime());
+
+            model.addRow(cols);
+        }
     }
 
     public void displayOrderIdAtComboBox() {

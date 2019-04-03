@@ -1,4 +1,3 @@
-
 package TailorShop.view;
 
 import TailorShop.dao.CategoryDao;
@@ -45,7 +44,6 @@ public class CategoryView extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDisplay = new javax.swing.JTable();
-        btnClearTable = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +91,7 @@ public class CategoryView extends javax.swing.JFrame {
 
         jLabel4.setText("Category ID:");
 
+        txtId.setEditable(false);
         txtId.setText("0");
 
         btnAdd.setText("Add");
@@ -168,24 +167,13 @@ public class CategoryView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblDisplay);
 
-        btnClearTable.setText("Clear Table");
-        btnClearTable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearTableActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnClearTable)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -193,9 +181,7 @@ public class CategoryView extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnClearTable)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,8 +231,10 @@ public void displayCategoryListIntoTable() {
         Category category = new Category(txtCatName.getText());
         CategoryDao obj = new CategoryDaoImpl();
         obj.save(category);
+        clearTable();
         displayCategoryListIntoTable();
-        JOptionPane.showMessageDialog(null, "Success !");
+
+        JOptionPane.showMessageDialog(null, "Category Saved !");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -254,19 +242,17 @@ public void displayCategoryListIntoTable() {
         CategoryDao obj = new CategoryDaoImpl();
         obj.update(category);
         displayCategoryListIntoTable();
-        JOptionPane.showMessageDialog(null, "Success !");
+        JOptionPane.showMessageDialog(null, "Update Successfull !");
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         txtId.setText("0");
         txtCatName.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
-
-    private void btnClearTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearTableActionPerformed
+    private void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         model.setRowCount(0);
-    }//GEN-LAST:event_btnClearTableActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
@@ -306,7 +292,6 @@ public void displayCategoryListIntoTable() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnClearTable;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
