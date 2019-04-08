@@ -1,5 +1,5 @@
 
-package TailorShop.view;
+package TailorShop.finalView;
 
 import TailorShop.util.CommonMenu;
 
@@ -34,17 +34,18 @@ public class HomeView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(51, 0, 0));
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField1.setBackground(new java.awt.Color(0, 51, 51));
         jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 70)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Welcome to Shuvo Tailors and Fabrics");
+        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 102)));
 
         jTextField2.setEditable(false);
         jTextField2.setBackground(new java.awt.Color(51, 0, 0));
         jTextField2.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(204, 255, 102));
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("An Entity of Trust and Perfection");
+        jTextField2.setText("(An Entity of Trust and Perfection)");
         jTextField2.setBorder(null);
 
         jTextField3.setEditable(false);
@@ -65,8 +66,8 @@ public class HomeView extends javax.swing.JFrame {
 
         jTextField5.setEditable(false);
         jTextField5.setBackground(new java.awt.Color(51, 0, 0));
-        jTextField5.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
-        jTextField5.setForeground(new java.awt.Color(204, 255, 255));
+        jTextField5.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jTextField5.setForeground(new java.awt.Color(153, 153, 153));
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField5.setText("Copyright@Shuvo/01717677451");
         jTextField5.setBorder(null);
@@ -149,6 +150,7 @@ public class HomeView extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
