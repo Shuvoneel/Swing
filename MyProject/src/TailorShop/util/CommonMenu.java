@@ -1,14 +1,14 @@
 package TailorShop.util;
 
-import TailorShop.view.CategoryView;
-import TailorShop.view.ClientDetailsView;
-import TailorShop.view.ClientView;
-import TailorShop.view.DeliveryView;
-import TailorShop.view.HelpView;
-import TailorShop.view.HomeView;
-import TailorShop.view.MeasurementView;
-import TailorShop.view.RequisitionView;
-import TailorShop.view.SummaryView;
+import TailorShop.View.CategoryView;
+import TailorShop.View.ClientDetailsView;
+import TailorShop.View.ClientView;
+import TailorShop.View.DeliveryView;
+import TailorShop.View.HelpView;
+import TailorShop.View.HomeView;
+import TailorShop.View.MeasurementView;
+import TailorShop.View.RequisitionView;
+import TailorShop.View.SummaryView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
