@@ -10,6 +10,7 @@ public class HomeView extends javax.swing.JFrame {
     public HomeView() {
         initComponents();
         CommonMenu.getCommonMenu(this);
+        setLocationRelativeTo(null);
     }
 
     /**
