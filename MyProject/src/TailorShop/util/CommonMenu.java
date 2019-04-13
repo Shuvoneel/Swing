@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 public class CommonMenu {
@@ -27,7 +28,7 @@ public class CommonMenu {
         JMenu file = new JMenu("File");
 
         JMenuItem itemHome = new JMenuItem("Home");
-        itemHome.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemHome.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_DOWN_MASK));
         itemHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,7 +38,7 @@ public class CommonMenu {
         });
 
         JMenuItem itemCategory = new JMenuItem("Category");
-        itemCategory.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemCategory.setAccelerator(KeyStroke.getKeyStroke('B', InputEvent.CTRL_DOWN_MASK));
         itemCategory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,7 +48,7 @@ public class CommonMenu {
         });
 
         JMenuItem itemClient = new JMenuItem("Honorable Clients");
-        itemClient.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemClient.setAccelerator(KeyStroke.getKeyStroke('C', InputEvent.CTRL_DOWN_MASK));
         itemClient.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +68,7 @@ public class CommonMenu {
         });
 
         JMenuItem itemOrder = new JMenuItem("Orders");
-        itemOrder.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemOrder.setAccelerator(KeyStroke.getKeyStroke('E', InputEvent.CTRL_DOWN_MASK));
         itemOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -77,7 +78,7 @@ public class CommonMenu {
         });
 
         JMenuItem itemDelivery = new JMenuItem("Deliveries");
-        itemDelivery.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemDelivery.setAccelerator(KeyStroke.getKeyStroke('F', InputEvent.CTRL_DOWN_MASK));
         itemDelivery.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,7 +88,7 @@ public class CommonMenu {
         });
 
         JMenuItem itemSummary = new JMenuItem("Summary");
-        itemSummary.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemSummary.setAccelerator(KeyStroke.getKeyStroke('G', InputEvent.CTRL_DOWN_MASK));
         itemSummary.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,12 +98,28 @@ public class CommonMenu {
         });
 
         JMenuItem itemSpecificClients = new JMenuItem("Clients Order Details");
-        itemSpecificClients.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemSpecificClients.setAccelerator(KeyStroke.getKeyStroke('H', InputEvent.CTRL_DOWN_MASK));
         itemSpecificClients.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
                 new ClientDetailsView().setVisible(true);
+            }
+        });
+
+        JMenuItem itemExit = new JMenuItem("Exit the Program");
+        itemExit.setAccelerator(KeyStroke.getKeyStroke('I', InputEvent.CTRL_DOWN_MASK));
+        itemExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int dialogBtn = 0;
+                int dialogRslt = JOptionPane.showConfirmDialog(null, "Are you sure ?", "Warning !", dialogBtn);
+                if (dialogRslt == JOptionPane.YES_OPTION) {
+                    System.out.println("Program Closed !");
+                    System.exit(0);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Okay ! Complete your task.");
+                }
             }
         });
 
@@ -112,14 +129,15 @@ public class CommonMenu {
         file.add(itemMeasurement);
         file.add(itemOrder);
         file.add(itemDelivery);
-        file.add(itemSummary);
         file.add(itemSpecificClients);
+        file.add(itemSummary);
+        file.add(itemExit);
         menuBar.add(file);
 
         // Add Help menu and Menu item to Help
         JMenu help = new JMenu("Help");
         JMenuItem itemHelp = new JMenuItem("Service Provider");
-        itemHelp.setAccelerator(KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK));
+        itemHelp.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_DOWN_MASK));
         itemHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

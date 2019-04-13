@@ -35,7 +35,7 @@ public class HomeView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(51, 0, 0));
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField1.setBackground(new java.awt.Color(0, 153, 153));
         jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 70)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Welcome to Shuvo Tailors and Fabrics");

@@ -22,6 +22,7 @@ public class MeasurementView extends javax.swing.JFrame {
         displayClientAtComboBox();
         displayCategoryAtComboBox();
         CommonMenu.getCommonMenu(this);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -67,7 +68,7 @@ public class MeasurementView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 0, 0));
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField1.setBackground(new java.awt.Color(0, 153, 153));
         jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Measurement Details of the Clients");
@@ -409,8 +410,9 @@ public class MeasurementView extends javax.swing.JFrame {
         //Measurement(double length, double width, double shoulder, double waist, double chest, Category category, Client client
         Measurement measurement = new Measurement(Double.parseDouble(txtLength.getText()), Double.parseDouble(txtWidth.getText()), Double.parseDouble(txtShoulder.getText()), Double.parseDouble(txtWaist.getText()), Double.parseDouble(txtChest.getText()), category, client);
         dao.save(measurement);
-        JOptionPane.showMessageDialog(null, "Measurement Taken !");
+        clearTable();
         displayMeasurementListIntoTable();
+        JOptionPane.showMessageDialog(null, "Measurement Taken !");
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed

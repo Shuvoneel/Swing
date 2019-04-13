@@ -1,8 +1,8 @@
 package SalesManagement.view;
 
 import SalesManagement.dao.ProductCategoryDao;
+import SalesManagement.daoImpl.ProductCategoryDaoImpl;
 import SalesManagement.pojo.ProductCategory;
-import com.coderbd.daoImpl.ProductCategoryDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

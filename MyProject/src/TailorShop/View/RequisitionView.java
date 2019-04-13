@@ -29,6 +29,7 @@ public class RequisitionView extends javax.swing.JFrame {
         displayClientAtComboBox();
         displayCategoryAtComboBox();
         CommonMenu.getCommonMenu(this);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -95,7 +96,7 @@ public class RequisitionView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 0, 0));
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField1.setBackground(new java.awt.Color(0, 153, 153));
         jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Requisition Details of the Clients");
@@ -125,7 +126,7 @@ public class RequisitionView extends javax.swing.JFrame {
 
         btnSave.setBackground(new java.awt.Color(153, 153, 153));
         btnSave.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnSave.setText("Save");
+        btnSave.setText("Order");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -159,7 +160,7 @@ public class RequisitionView extends javax.swing.JFrame {
 
         txtMsId.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         txtMsId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtMsId.setText("0.0");
+        txtMsId.setText("0");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
@@ -168,7 +169,7 @@ public class RequisitionView extends javax.swing.JFrame {
 
         txtQty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         txtQty.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtQty.setText("0.0");
+        txtQty.setText("0");
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
@@ -553,7 +554,6 @@ public class RequisitionView extends javax.swing.JFrame {
         Date deliveryDate = UtilDate.getDeliveryDate(new Date(), 10);
         Requisition requisition = new Requisition(Integer.parseInt(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), Double.parseDouble(txtAdvance.getText()), Double.parseDouble(txtDue.getText()), orderDate, deliveryDate, client, measurement, category);
         dao.save(requisition);
-        JOptionPane.showMessageDialog(null, "Order Taken ! ");
 
         // Invoice
         dspClient.setText(cmbClient.getItemAt(cmbClient.getSelectedIndex()));
@@ -572,6 +572,8 @@ public class RequisitionView extends javax.swing.JFrame {
         dspTotalPrice.setText(txtTotalPrice.getText());
         dspAdvance.setText(txtAdvance.getText());
         dspDue.setText(txtDue.getText());
+
+        JOptionPane.showMessageDialog(null, "Order Taken ! ");
 
         // Summary Table
         SummaryDao summaryDao = new SummaryDaoImpl();
@@ -601,7 +603,7 @@ public class RequisitionView extends javax.swing.JFrame {
             cmbClient.addItem(client.getName());
         }
     }
-    
+
     public void displayCategoryAtComboBox() {
         CategoryDao dao = new CategoryDaoImpl();
         List<Category> categorys = dao.getCategorys();
@@ -610,8 +612,7 @@ public class RequisitionView extends javax.swing.JFrame {
             cmbCategory.addItem(category.getCatName());
         }
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

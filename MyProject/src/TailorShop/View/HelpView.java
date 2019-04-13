@@ -11,6 +11,7 @@ public class HelpView extends javax.swing.JFrame {
     public HelpView() {
         initComponents();
         CommonMenu.getCommonMenu(this);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,6 +32,7 @@ public class HelpView extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Copyright@Shuvo/01717677451");
 
+        jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(51, 0, 0));
         jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 40)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(204, 255, 102));

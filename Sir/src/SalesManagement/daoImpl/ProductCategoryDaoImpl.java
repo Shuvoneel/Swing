@@ -3,7 +3,6 @@ package SalesManagement.daoImpl;
 import SalesManagement.connection.CustomDBConnection;
 import SalesManagement.dao.ProductCategoryDao;
 import SalesManagement.pojo.ProductCategory;
-import SalesManagement.pojo.Role;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

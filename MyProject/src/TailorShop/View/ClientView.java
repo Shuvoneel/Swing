@@ -14,6 +14,7 @@ public class ClientView extends javax.swing.JFrame {
         initComponents();
         displayClientListIntoTable();
         CommonMenu.getCommonMenu(this);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -53,7 +54,7 @@ public class ClientView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 0, 0));
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(0, 102, 102));
+        jTextField1.setBackground(new java.awt.Color(0, 153, 153));
         jTextField1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Our Honorable Clients are....");

@@ -1,0 +1,9 @@
+Steps:
+1.	create package connection, pojo, dao, daoImpl; view, test
+2.	create connection method by adding mysql driver
+3.	create class Product, ProductCategory, ProductSales; summary in pojo package
+4.	create private fields/variable and public constructor (default), constructor (id), constructor (without id), constructor (all), getter, setter in every pojo class
+5.	create interface and method in dao package
+6. 	create implementation class by implementing interface
+7.	create all table one after another
+8.	
