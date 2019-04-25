@@ -86,6 +86,7 @@ public class CategoryView extends javax.swing.JFrame {
         txtId.setEditable(false);
         txtId.setBackground(new java.awt.Color(153, 153, 153));
         txtId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtId.setText("0");
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));

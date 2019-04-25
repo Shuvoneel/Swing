@@ -10,3 +10,5 @@ select * from client_view where mobile = 323458;
 select sum(quantity) from client_view where mobile = 323458;
 
 create or replace view delivery_view (name, mobile, email, address, category, quantity, order_date) as select c.name, c.mobile, c.email, c.address, r.cat_id, r.quantity, r.order_date from client c, requisition r where c.id = r.client_id;
+
+## daily/monthly report (total income + total expense) shoul be included
